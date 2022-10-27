@@ -1,0 +1,221 @@
+{% extends 'adminBase.htm.twig' %}
+{% block body %}
+    <div class="container-fluid">
+        <div class="row">
+            <a href="{{ path('open-profiles') }}">
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="card card-stats">
+                        <div class="card-header" data-background-color="orange">
+                            <i class="material-icons">
+                                <i class="material-icons">person</i>
+                            </i>
+                        </div>
+                        <div class="card-content">
+                            <p class="category">Open Composer Profiles</p>
+                            <h3 class="title">{{ nrIndividual }}
+
+                            </h3>
+                        </div>
+
+                        <div class="card-footer">
+                            <div class="stats">
+                                <i class="material-icons">local_offer</i> Pending Composer Profiles
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+            <a href="{{ path('open-corporate-profiles') }}">
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="card card-stats">
+                        <div class="card-header" data-background-color="green">
+                            <i class="material-icons">person</i>
+                        </div>
+                        <div class="card-content">
+                            <p class="category">Incomplete Publisher Profiles</p>
+                            <h3 class="title">{{ nrCorporate }}</h3>
+                        </div>
+                        <div class="card-footer">
+                            <div class="stats">
+                                <i class="material-icons">local_offer</i> Pending Publisher Profiles
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </a>
+
+            <a href="{{ path('membership-approved-profiles') }}">
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="card card-stats">
+                        <div class="card-header" data-background-color="red">
+                            <i class="material-icons">check</i>
+                        </div>
+                        <div class="card-content">
+                            <p class="category">Membership Approved Composer</p>
+                            <h3 class="title">{{ nrMembershipApproved }}</h3>
+                        </div>
+                        <div class="card-footer">
+                            <div class="stats">
+                                <i class="material-icons">local_offer</i> Composer
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </a>
+
+            <a href="{{ path('membership-approved-corporates') }}">
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="card card-stats">
+                        <div class="card-header" data-background-color="red">
+                            <i class="material-icons">check</i>
+                        </div>
+                        <div class="card-content">
+                            <p class="category">Membership Approved Publisher</p>
+                            <h3 class="title">{{ nrMembershipApprovedCorporates }}</h3>
+                        </div>
+                        <div class="card-footer">
+                            <div class="stats">
+                                <i class="material-icons">local_offer</i> Publisher
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </a>
+
+            {#<div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-header" data-background-color="red">
+                        <i class="material-icons">playlist_add</i>
+                    </div>
+                    <div class="card-content">
+                        <p class="category">Membership Approved Profiles</p>
+                        <h3 class="title">{{ nrMembershipApproved }}</h3>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            <i class="material-icons">local_offer</i> Composer
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="title">{{ nrMembershipApprovedCorporates }}</h3>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            <i class="material-icons">local_offer</i> Publisher
+                        </div>
+                    </div>
+                </div>
+            </div>#}
+
+            <a href="{{ path('committee-approved-users') }}">
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="card card-stats">
+                        <div class="card-header" data-background-color="purple">
+                            <i class="material-icons">done_all</i>
+                        </div>
+                        <div class="card-content">
+                            <p class="category">Committee Approved Composer Profiles</p>
+                            <h3 class="title">{{ nrCommitteeApproved }}</h3>
+                        </div>
+                        <div class="card-footer">
+                            <div class="stats">
+                                <i class="material-icons">local_offer</i> Composer
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </a>
+
+            <a href="{{ path('committee-approved-corporates') }}">
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="card card-stats">
+                        <div class="card-header" data-background-color="purple">
+                            <i class="material-icons">done_all</i>
+                        </div>
+                        <div class="card-content">
+                            <p class="category">Committee Approved Publisher Profiles</p>
+                            <h3 class="title">{{ nrCommitteeApprovedCorporates }}</h3>
+                        </div>
+                        <div class="card-footer">
+                            <div class="stats">
+                                <i class="material-icons">local_offer</i> Publisher
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </a>
+
+            <a href="{{ path('board-approved-users') }}">
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="card card-stats">
+                        <div class="card-header" data-background-color="blue">
+                            <i class="material-icons">check_box</i>
+                        </div>
+                        <div class="card-content">
+                            <p class="category">Board Approved Composer Profiles</p>
+                            <h3 class="title">{{ nrBoardApproved }}</h3>
+                        </div>
+                        <div class="card-footer">
+                            <div class="stats">
+                                <i class="material-icons">local_offer</i> Composer
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </a>
+
+            <a href="{{ path('board-approved-corporates') }}">
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="card card-stats">
+                        <div class="card-header" data-background-color="blue">
+                            <i class="material-icons">check_box</i>
+                        </div>
+                        <div class="card-content">
+                            <p class="category">Board Approved Publisher Profiles</p>
+                            <h3 class="title">{{ nrBoardApprovedCorporates }}</h3>
+                        </div>
+                        <div class="card-footer">
+                            <div class="stats">
+                                <i class="material-icons">local_offer</i> Publisher
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </a>
+
+            {#<div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-header" data-background-color="blue">
+                        <i class="material-icons">beenhere</i>
+                    </div>
+                    <div class="card-content">
+                        <p class="category">Board Approved Profiles</p>
+                        <h3 class="title">{{ nrBoardApproved }}</h3>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            <i class="material-icons">update</i> Composer
+                        </div>
+                    </div>
+                    <div class="card-content">
+
+                        <h3 class="title">{{ nrBoardApprovedCorporates }}</h3>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            <i class="material-icons">update</i> Publisher
+                        </div>
+                    </div>
+                </div>
+            </div>#}
+        </div>
+    </div>
+{% endblock %}

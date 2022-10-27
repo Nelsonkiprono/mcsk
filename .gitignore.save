@@ -1,0 +1,7 @@
+.idea
+/var/cache/
+/var/logs/
+/var/sessions/
+.DS_Store
+
+

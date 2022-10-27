@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MCSK</title>
+    <!-- Bootstrap CSS -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link href="{{ asset('css/css/all.css') }}" rel="stylesheet">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            height: 100%;
+        }
+
+        /*#grad1 {
+            background-color: #9C27B0;
+            background-image: linear-gradient(120deg, #FF4081, #81D4FA)
+        }*/
+
+        #msform {
+            text-align: center;
+            position: relative;
+            margin-top: 20px;
+        }
+
+        #msform fieldset .form-card {
+            background: white;
+            border: 0 none;
+            border-radius: 0px;
+            box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.2);
+            padding: 50px 40px 30px 40px;
+            box-sizing: border-box;
+            width: 94%;
+            margin: 0 3% 20px 3%;
+            position: relative;
+        }
+
+        #msform fieldset {
+            background: white;
+            border: 0 none;
+            border-radius: 0.5rem;
+            box-sizing: border-box;
+            width: 100%;
+            margin: 0;
+            padding-bottom: 20px;
+            position: relative;
+        }
+
+        #msform fieldset:not(:first-of-type) {
+            display: none;
+        }
+
+        #msform fieldset .form-card {
+            text-align: left;
+            color: #9E9E9E;
+        }
+
+        #msform input,
+        #msform textarea {
+            padding: 0px 8px 4px 8px;
+            border: none;
+            border-bottom: 1px solid #ccc;
+            border-radius: 0px;
+            margin-bottom: 25px;
+            margin-top: 2px;
+            width: 100%;
+            box-sizing: border-box;
+            font-family: montserrat;
+            color: #2C3E50;
+            font-size: 16px;
+            letter-spacing: 1px;
+        }
+
+        #msform input:focus,
+        #msform textarea:focus {
+            -moz-box-shadow: none !important;
+            -webkit-box-shadow: none !important;
+            box-shadow: none !important;
+            border: none;
+            font-weight: bold;
+            border-bottom: 2px solid #4e4681;
+            outline-width: 0;
+        }
+
+        #msform .action-button {
+            width: 100px;
+            background: #4e4681;
+            font-weight: bold;
+            color: white;
+            border: 0 none;
+            border-radius: 0px;
+            cursor: pointer;
+            padding: 10px 5px;
+            margin: 10px 5px;
+        }
+
+        #msform .action-button:hover,
+        #msform .action-button:focus {
+            box-shadow: 0 0 0 2px white, 0 0 0 3px #4e4681;
+        }
+
+        #msform .action-button-previous {
+            width: 100px;
+            background: #616161;
+            font-weight: bold;
+            color: white;
+            border: 0 none;
+            border-radius: 0px;
+            cursor: pointer;
+            padding: 10px 5px;
+            margin: 10px 5px;
+        }
+
+        #msform .action-button-previous:hover,
+        #msform .action-button-previous:focus {
+            box-shadow: 0 0 0 2px white, 0 0 0 3px #616161;
+        }
+
+        select.list-dt {
+            border: none;
+            outline: 0;
+            border-bottom: 1px solid #ccc;
+            padding: 2px 5px 3px 5px;
+            margin: 2px;
+        }
+
+        select.list-dt:focus {
+            border-bottom: 2px solid #4e4681;
+        }
+
+        .card {
+            z-index: 0;
+            border: none;
+            border-radius: 0.5rem;
+            position: relative;
+        }
+
+        .fs-title {
+            font-size: 25px;
+            color: #2C3E50;
+            margin-bottom: 10px;
+            font-weight: bold;
+            text-align: left;
+        }
+
+        #progressbar {
+            margin-bottom: 30px;
+            overflow: hidden;
+            color: lightgrey;
+        }
+
+        #progressbar .active {
+            color: #000000;
+        }
+
+        #progressbar li {
+            list-style-type: none;
+            font-size: 12px;
+            width: 14%;
+            float: left;
+            position: relative;
+        }
+
+        #progressbar #account:before {
+            font-family: "Font Awesome 5 Pro";
+            content: "\f023";
+        }
+
+        #progressbar #personal:before {
+            font-family: "Font Awesome 5 Pro";
+            content: "\f007";
+        }
+
+        #progressbar #next_of_kin:before {
+            font-family: "Font Awesome 5 Pro";
+            content: "\f0c0";
+        }
+
+        #progressbar #doc:before {
+            font-family: "Font Awesome 5 Pro";
+            content: "\f15b";
+        }
+
+        #progressbar #rec:before {
+            font-family: "Font Awesome 5 Pro";
+            content: "\f001";
+        }
+
+        #progressbar #others:before {
+            font-family: "Font Awesome 5 Pro";
+            content: "\f531";
+        }
+
+        #progressbar #payment:before {
+            font-family: "Font Awesome 5 Pro";
+            content: "\f09d";
+        }
+
+        #progressbar #confirm:before {
+            font-family: "Font Awesome 5 Pro";
+            content: "\f00c";
+        }
+
+        #progressbar li:before {
+            width: 50px;
+            height: 50px;
+            line-height: 45px;
+            display: block;
+            font-size: 18px;
+            color: #ffffff;
+            background: lightgray;
+            border-radius: 50%;
+            margin: 0 auto 10px auto;
+            padding: 2px;
+        }
+
+        #progressbar li:after {
+            content: '';
+            width: 100%;
+            height: 2px;
+            background: lightgray;
+            position: absolute;
+            left: 0;
+            top: 25px;
+            z-index: -1;
+        }
+
+        #progressbar li.active:before,
+        #progressbar li.active:after {
+            background: #4e4681;
+        }
+
+        .radio-group {
+            position: relative;
+            margin-bottom: 25px;
+        }
+
+        .radio {
+            display: inline-block;
+            width: 204px;
+            height: 104px;
+            border-radius: 0;
+            background: lightblue;
+            box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.2);
+            box-sizing: border-box;
+            cursor: pointer;
+            margin: 8px 2px;
+        }
+
+        .radio:hover {
+            box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .radio.selected {
+            box-shadow: 1px 1px 2px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .fit-image {
+            width: 100%;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="container-fluid" id="grad1">
+        <div class="row justify-content-center mt-0">
+            <div class="col-lg-12">
+                <div class="card">
+                    <h2><strong>Continue with account registration</strong></h2>
+                    <p>Fill all form field to go to next step</p>
+                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                        <a href="{{ path('security_logout') }}">Logout</a>
+                    {% else %}
+
+                        <a href="{{ path('prof_login') }}">Login</a>
+
+                    {% endif %}
+                    <div class="row">
+                        <div class="col-md-12">
+                            <form id="msform" enctype="multipart/form-data" method="post">
+                                <!-- progressbar -->
+                                <ul id="progressbar">
+                                    <li class="active" id="personal"><strong>Personal</strong></li>
+                                    <li id="next_of_kin"><strong>Next of Kin/Beneficiary</strong></li>
+                                    <li id="doc"><strong>Documents</strong></li>
+                                    <li id="rec"><strong>Recordings</strong></li>
+                                    <li id="others"><strong>Others</strong></li>
+                                    <li id="payment"><strong>Payment</strong></li>
+                                    <li id="confirm"><strong>Finish</strong></li>
+                                </ul> <!-- fieldsets -->
+                                <fieldset>
+
+                                    <div class="form-card">
+                                        <h2 class="fs-title">Personal Details</h2>
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <label>Pseudonym/Stage Names<span style="color: red;"><b>*</b></span></label>
+                                                <input required type="text" name="member_pseudonym" value="{{ profile.pseudonym }}" class="form-control" placeholder="Pseudonym/Stage Names" />
+                                                <input required type="text" name="step1" value="1" class="form-control" hidden />
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label>Date of Birth<span style="color: red;"><b>*</b></span></label>
+                                                <input required type="date" value="{{ profile.dateOfBirth.format('Y-m-d')|date('Y-m-d') }}"  name="member_dob" class="form-control">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label>Place/Country of Birth<span style="color: red;"><b>*</b></span></label>
+                                                <input required type="text" name="member_pob" class="form-control" value="{{ profile.placeOfBirth }}" placeholder="Place/Country of Birth" />
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label>Nationality<span style="color: red;"><b>*</b></span></label>
+                                                <input required type="text" name="member_nationality" class="form-control" value="{{ profile.nationality }}" placeholder="Nationality" />
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label>Country of Residence<span style="color: red;"><b>*</b></span></label>
+                                                <input required type="text" name="member_cor" class="form-control" value="{{ profile.countryOfResidence }}" placeholder="Country of Residence" />
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label>Marital Status<span style="color: red;"><b>*</b></span></label>
+                                                <select class="form-control" name="maritalcbx">
+                                                    {% if profile.marialStatus == 'Single' %}
+                                                        <option value="Married">Married</option>
+                                                        <option selected value="Single">Single</option>
+                                                    {% else %}
+                                                        <option selected value="Married">Married</option>
+                                                        <option value="Single">Single</option>
+                                                    {% endif %}
+
+                                                </select>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label>Gender<span style="color: red;"><b>*</b></span></label>
+                                                <select class="form-control" name="gendercbx">
+                                                    {% if profile.gender == 'Male' %}
+                                                        <option selected value="Male">Male</option>
+                                                        <option value="Female">Female</option>
+                                                    {% else %}
+                                                        <option value="Male">Male</option>
+                                                        <option selected value="Female">Female</option>
+                                                    {% endif %}
+                                                </select>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label>National ID/Passport/Birth Certificate No<span style="color: red;"><b>*</b></span></label>
+                                                <input required type="text" name="member_national_id" value="{{ profile.idNumber }}" class="form-control" placeholder="National ID/Passport/Birth Certificate No" />
+                                            </div>
+                                        </div>
+
+                                        <h2 class="fs-title">Address</h2>
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <label>Address<span style="color: red;"><b>*</b></span></label>
+                                                <input required type="text" name="member_address"  class="form-control" value="{{ profile.postalAddress }}" placeholder="Address" />
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label>Post Code<span style="color: red;"><b>*</b></span></label>
+                                                <input required type="text" name="member_postcode" class="form-control" value="{{ profile.postalCode }}" placeholder="Post Code" />
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label>Town/City<span style="color: red;"><b>*</b></span></label>
+                                                <input required type="text" name="member_town" class="form-control" value="{{ profile.city }}" placeholder="Town/City" />
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label>Tel<span style="color: red;"><b>*</b></span></label>
+                                                <input required type="text" name="member_tel" class="form-control" value="{{ profile.telephoneNumber }}" placeholder="Tel" />
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label>Mobile<span style="color: red;"><b>*</b></span></label>
+                                                <input required type="text" name="member_mobile" class="form-control" value="{{ profile.mobileNumber }}" placeholder="Mobile" />
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label>E-Mail<span style="color: red;"><b>*</b></span></label>
+                                                <input pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required type="text" value="{{ profile.emailAddress }}" name="member_email" class="form-control" placeholder="E-Mail" />
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label>Alternative Address</label>
+                                                <input pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" type="text" name="member_aemail" value="{{ profile.emailAddress2 }}" class="form-control" placeholder="Alternative Address" />
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label>Preferred Region<span style="color: red;"><b>*</b></span></label>
+                                                <select class="form-control" name="member_pr">
+                                                    <option value="Nairobi">Nairobi</option>
+                                                    <option value="Coast">Coast</option>
+                                                    <option value="Central">Central</option>
+                                                    <option value="Rift Valley">Rift Valley</option>
+                                                    <option value="Nyanza">Nyanza</option>
+                                                    <option value="Eastern">Eastern</option>
+                                                    <option value="Western">Western</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <h2 class="fs-title">Other Societies</h2>
+                                        <div class="row">
+                                            <div class="form-group col-md-12">
+                                                <label>Are you a full member of any collecting society?<span style="color: red;"><b>*</b></span></label><br>
+                                                <select class="form-control" name="mscbx" id="mscbx">
+                                                    {% if profile.isCollectingSocietiesMember == 1 %}
+                                                        <option selected value="Yes">Yes</option>
+                                                        <option value="No">No</option>
+                                                    {% else %}
+                                                        <option value="Yes">Yes</option>
+                                                        <option selected value="No">No</option>
+
+                                                    {% endif %}
+                                                </select>
+                                            </div>
+                                            <div class="form-group col-md-12" id="member_societies">
+                                                {% if profile.isCollectingSocietiesMember == 1 %}
+                                                    <div class="form-group col-md-12">
+                                                    <label>Give names and details of societies below<span style="color: red;"><b>*</b></span></label>
+                                                    <textarea required class="form-control" name="member_society_details" placeholder="Details here">{{ profile.collectingSocieties }}</textarea>
+                                                    </div> <div class="form-group col-md-12">
+                                                    <label>Please give membership number(s) (if known)</label>
+                                                    <input type="text" name="member_society_number"  value="{{ profile.collectingSocietiesNumber }}" class="form-control">
+                                                    </div>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+
+                                        <h2 class="fs-title">Bank Details</h2>
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <label>Bank Name<span style="color: red;"><b>*</b></span></label>
+                                                <input required type="text" class="form-control" value="{{ profile.bank }}" name="member_bank_name" placeholder="Bank name" />
+                                            </div>
+
+                                            <div class="form-group col-md-6">
+                                                <label>Bank Address<span style="color: red;"><b>*</b></span></label>
+                                                <input required type="text" class="form-control" value="{{ profile.bankAddress }}" name="member_bank_address" placeholder="Bank Address" />
+                                            </div>
+
+                                            <div class="form-group col-md-6">
+                                                <label>A/C No<span style="color: red;"><b>*</b></span></label>
+                                                <input required type="text" class="form-control" value="{{ profile.accountNumber }}" name="member_bank_accno" placeholder="A/C No" />
+                                            </div>
+
+                                            <div class="form-group col-md-6">
+                                                <label>Branch<span style="color: red;"><b>*</b></span></label>
+                                                <input required type="text" class="form-control" value="{{ profile.bankBranch }}" name="member_bank_branch" placeholder="Branch" />
+                                            </div>
+
+                                            <div class="form-group col-md-6">
+                                                <label>Bank Code<span style="color: red;"><b>*</b></span></label>
+                                                <input required type="text" class="form-control" value="{{ profile.bankCode }}" name="member_bank_code" placeholder="Bank Code" />
+                                            </div>
+
+                                            <div class="form-group col-md-6">
+                                                <label>Swift Code<span style="color: red;"><b>*</b></span></label>
+                                                <input required type="text" class="form-control" value="{{ profile.swiftCode }}" name="member_bank_swift_code" placeholder="Swift Code" />
+                                            </div>
+                                        </div>
+
+                                        <h2 class="fs-title">KRA Details</h2>
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <label>KRA Pin<span style="color: red;"><b>*</b></span></label>
+                                                <input required type="text" class="form-control" name="member_kra_pin" value="{{ profile.itaxPin }}" placeholder="KRA Pin" />
+                                            </div>
+                                        </div>
+
+                                        <h3 class="fs-title">Territorial Assignment</h3>
+                                        <div class="row">
+                                            <div class="form-group col-md-12">
+                                                <label>State the territory in which rights are to be administered<span style="color: red;"><b>*</b></span></label>
+                                                <textarea required class="form-control" name="member_territorial_assignment" placeholder="Details here">{{ profile.territorialAssignment }}</textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <button type="submit" name="next" class="next action-button" >Next Step</button>
+                                </fieldset>
+                                <fieldset>
+                                    <div class="form-card">
+                                        <h2 class="fs-title">Representative (Next of Kin/Beneficiary)</h2>
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <label>Contact First Name<span style="color: red;"><b>*</b></span></label>
+                                                <input required type="text" class="form-control" value="{{ profile.kinFirstName }}" name="member_contact_fname" placeholder="Contact First Name" />
+                                                <input required type="text" name="step2" value="2" class="form-control" hidden />
+                                            </div>
+
+                                            <div class="form-group col-md-6">
+                                                <label>Contact Second Name<span style="color: red;"><b>*</b></span></label>
+                                                <input required type="text" class="form-control" value="{{ profile.kinMiddleName }}" name="member_contact_sname" placeholder="Contact Second Name" />
+                                            </div>
+
+                                            <div class="form-group col-md-6">
+                                                <label>Contact Last Name<span style="color: red;"><b>*</b></span></label>
+                                                <input required type="text" class="form-control" value="{{ profile.kinLastName }}" name="member_contact_lname" placeholder="Contact Lat Name" />
+                                            </div>
+
+                                            <div class="form-group col-md-6">
+                                                <label>Kin Gender<span style="color: red;"><b>*</b></span></label>
+                                                <select class="form-control" name="kingendercbx">
+                                                    {% if profile.kinGender == 'Male' %}
+                                                        <option selected value="Male">Male</option>
+                                                        <option value="Female">Female</option>
+                                                    {% else %}
+                                                        <option value="Male">Male</option>
+                                                        <option selected value="Female">Female</option>
+                                                    {% endif %}
+                                                </select>
+                                            </div>
+
+                                            <div class="form-group col-md-6">
+                                                <label>Email<span style="color: red;"><b>*</b></span></label>
+                                                <input required type="email" class="form-control" value="{{ profile.kinEmailAddress }}" name="member_contact_email" placeholder="Email" />
+                                            </div>
+
+                                            <div class="form-group col-md-6">
+                                                <label>Tel<span style="color: red;"><b>*</b></span></label>
+                                                <input required type="text" class="form-control" value="{{ profile.kinTelephoneNumber }}" name="member_contact_tel" placeholder="Tel" />
+                                            </div>
+
+                                            <div class="form-group col-md-6">
+                                                <label>ID/Passport/Birth Certificate No<span style="color: red;"><b>*</b></span></label>
+                                                <input required type="text" class="form-control" value="{{ profile.kinIdNumber }}" name="member_contact_id" placeholder="ID/Passport No" />
+                                            </div>
+
+                                            <div class="form-group col-md-6">
+                                                <label>Relationship<span style="color: red;"><b>*</b></span></label>
+                                                <input required type="text" class="form-control" value="{{ profile.kinRelationship }}" name="member_relationship" placeholder="Relationship" />
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <input type="button" name="previous" class="previous action-button-previous" value="Previous" />
+                                    <button type="submit" name="next" class="next action-button" >Next Step</button>
+                                </fieldset>
+                                <fieldset>
+                                    <div class="form-card">
+                                        <h2 class="fs-title">Documents</h2>
+                                        <p><i>** The document should not exceed 2MB in size **</i></p>
+                                        <p>The following documents are <b>ALL</b> required as part of your application:</p>
+                                        <div class="row">
+                                            <ol style="margin-left: 30px">
+                                                {% if profile.profileDocuments | length > 0 %}
+                                                    <li>A Coloured Passport Size photograph.<i class="fas fa-check" style="color: green"></i></li>
+                                                    <li>Valid National Identity Card, Passport or Birth Certificate.<i class="fas fa-check" style="color: green"></i></li>
+                                                    <li>Kenya Revenue Authority ITAX Pin Certificate.<i class="fas fa-check" style="color: green"></i></li>
+                                                    <li>Valid National Identity Card, Passport or Birth Certificate of Next of Kin/Beneficiary.<i class="fas fa-check" style="color: green"></i></li>
+                                                    <li style="color: green">All required document have been uploaded.<i class="far fa-thumbs-up" style="color: green"></i></li>
+                                                {% else %}
+                                                    <li>A Coloured Passport Size photograph.</li>
+                                                    <li>Valid National Identity Card, Passport or Birth Certificate.</li>
+                                                    <li>Kenya Revenue Authority ITAX Pin Certificate.</li>
+                                                    <li>Valid National Identity Card, Passport or Birth Certificate of Next of Kin/Beneficiary.</li>
+                                                {% endif %}
+
+                                            </ol>
+
+                                            <div class="form-group col-md-6">
+                                                <label>Passport photo<span style="color: red;"><b>*</b></span></label>
+                                                <input required type="file" accept="image/*" name="member_passport_pic" class="form-control" />
+                                                <input required type="text" name="step3" value="3" class="form-control" hidden />
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <input type="button" name="previous" class="previous action-button-previous" value="Previous" />
+                                    {% if profile.profileDocuments | length > 5 %}
+                                        {#<input type="submit" name="next" class="next action-button" value="Upload" />#}
+                                        <input type="button" name="next" class="next action-button" id="skip" value="Skip" />
+                                    {% else %}
+                                        <input type="submit" name="next" class="next action-button" id="doc_upload" value="Upload" />
+                                    {% endif %}
+                                </fieldset>
+                                <fieldset>
+                                    <div class="form-card">
+                                        <h2 class="fs-title">Recordings</h2>
+                                        <div class="row">
+                                            <div class="form-group col-md-12">
+                                                <label>Download and fill the Work Declaration Form below<span style="color: red;"><b>*</b></span></label><br>
+                                                <a href="{{ asset('/assets/documents/NEW WORK DECLARATION FORM.doc') }}" download>WORK DECLARATION FORM</a>
+                                            </div>
+                                            <div class="form-group col-md-12">
+                                                <label>Upload the filled Work Declaration Form<span style="color: red;"><b>*</b></span></label>
+                                                <input required type="file" accept=".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" name="member_work_declaration_form" class="form-control-file">
+                                                <input required type="text" name="step4" value="4" class="form-control" hidden />
+                                            </div>
+                                            <label style="margin-left: 20px">Please upload Track 1 from the above Work Declaration Form<span style="color: red;"><b>*</b></span></label>
+                                            <div class="form-group col-md-12">
+                                                <div class="form-group col-md-4">
+                                                    <input required type="file" accept=".mp3,audio/*" name="member1_music" class="form-control-file">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <input type="button" name="previous" class="previous action-button-previous" value="Previous" />
+                                    <input type="submit" name="next" class="next action-button" value="Next Step" />
+                                </fieldset>
+                                <fieldset>
+                                    <div class="form-card">
+                                        <h2 class="fs-title">Others</h2>
+                                        <h3 class="fs-title">Group</h3>
+                                        <div class="row">
+                                            <div class="form-group col-md-12">
+                                                <label>Is this a group/band or choir?<span style="color: red;"><b>*</b></span></label><br>
+                                                <select class="form-control" id="mgroup" name="mgroup">
+                                                    <option value="Yes">Yes</option>
+                                                    <option selected value="No">No</option>
+                                                </select>
+                                                <div class="row" id="member_group">
+
+                                                </div>
+
+                                            </div>
+
+                                            <div class="form-group col-md-12">
+                                                <label>Is there joint copyright ownership?<span style="color: red;"><b>*</b></span></label><br>
+                                                <select class="form-control" id="mjco" name="mjco">
+                                                    <option value="Yes">Yes</option>
+                                                    <option selected value="No">No</option>
+                                                </select>
+                                                <div class="form-group col-md-12" id="member_jco">
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <h3 class="fs-title">Deceased ownership</h3>
+                                        <div class="row">
+                                            <div class="form-group col-md-12">
+                                                <label>Are you applying on behalf of a deceased person?<span style="color: red;"><b>*</b></span></label><br>
+                                                <select class="form-control" id="mdeceased" name="mdeceased">
+                                                    <option value="Yes">Yes</option>
+                                                    <option selected value="No">No</option>
+                                                </select>
+                                                <div class="row" id="member_deceased">
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <h3 class="fs-title">Employment</h3>
+                                        <div class="row">
+                                            <div class="form-group col-md-12">
+                                                <label>Are you in any full time employment other than being a composer/author?<span style="color: red;"><b>*</b></span></label><br>
+                                                <select class="form-control" id="mecbx" name="mecbx">
+                                                    <option value="Yes">Yes</option>
+                                                    <option selected value="No">No</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group col-md-12" id="member_employment">
+
+                                            </div>
+                                        </div>
+                                        <h3 class="fs-title">Radio TV Public Place</h3>
+                                        <div class="row">
+                                            <div class="form-group col-md-12">
+                                                <label>Is your music played on any Radio/TV Station/Public Place?<span style="color: red;"><b>*</b></span></label><br>
+                                                <select class="form-control" id="mradiocbx" name="mradiocbx">
+                                                    <option value="Yes">Yes</option>
+                                                    <option selected value="No">No</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group col-md-12" id="member_radio">
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <input type="button" name="previous" class="previous action-button-previous" value="Previous" />
+                                    <input type="submit" name="next" class="next action-button" value="Next Step" />
+                                </fieldset>
+                                <fieldset>
+                                    <div class="form-card">
+                                        <h2 class="fs-title">Payment</h2>
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <label>Phone Number<span style="color: red;"><b>*</b></span></label>
+                                                <input required type="text" name="member_phone" class="form-control" value="254700776144" />
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label>Amount<span style="color: red;"><b>*</b></span></label>
+                                                <input required type="text" name="member_phone" class="form-control" value="5000" disabled/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <input type="button" name="previous" class="previous action-button-previous" value="Previous" />
+                                    <input type="submit" name="make_payment" class="next action-button" value="Pay" />
+                                </fieldset>
+                                <fieldset>
+                                    <div class="form-card">
+                                        <h2 class="fs-title text-center">Payment Confirmed</h2> <br><br>
+                                        <div class="row justify-content-center">
+                                            <div class="col-3"> <img src="https://img.icons8.com/color/96/000000/ok--v2.png" class="fit-image"> </div>
+                                        </div> <br><br>
+                                        <div class="row justify-content-center">
+                                            <div class="col-7 text-center">
+                                                <h5>You Have Successfully Signed Up</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+<script>
+    $(document).ready(function(){
+        var current_fs, next_fs, previous_fs; //fieldsets
+        var opacity;
+
+
+        $(".next").click(function(){
+            var button = $(this);
+
+            if(button.attr('id') == 'skip'){
+                current_fs = button.parent();
+                next_fs = button.parent().next();
+                //Add Class Active
+                $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+
+                //show the next fieldset
+                next_fs.show();
+                //hide the current fieldset with style
+                current_fs.animate({opacity: 0}, {
+                    step: function(now) {
+                        // for making fielset appear animation
+                        opacity = 1 - now;
+
+                        current_fs.css({
+                            'display': 'none',
+                            'position': 'relative'
+                        });
+                        next_fs.css({'opacity': opacity});
+                    },
+                    duration: 600
+                });
+            }else if(button.attr('id') == 'doc_upload'){
+                $("#step1").val('2');
+                $("#step2").val('3');
+                $("#msform").validate();
+                $("#msform").on('submit', function(e) {
+                    var isvalid = $("#msform").valid();
+                    if (isvalid) {
+                        e.preventDefault();
+                        button.attr("disabled", true);
+                        button.html('<span class="spinner-border spinner-border-sm"></span>' +
+                            '  Loading..');
+                        current_fs = button.parent();
+                        next_fs = button.parent().next();
+                        var form = document.getElementById("msform");
+                        $.ajax({
+                            type: "POST",
+                            data: new FormData(form),
+                            url: "{{ path('account_registration_submit') }}",
+                            contentType: false,
+                            processData: false,
+                            cache: false,
+                            dataType: "json",
+                            success: function(response){
+
+                                console.log(response);
+                                $.each(response, function(index, value) {
+                                    if(value==='success'){
+                                        button.attr("disabled", false);
+                                        button.html('Next Step');
+                                        //Add Class Active
+                                        $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+
+                                        //show the next fieldset
+                                        next_fs.show();
+                                        //hide the current fieldset with style
+                                        current_fs.animate({opacity: 0}, {
+                                            step: function(now) {
+                                                // for making fielset appear animation
+                                                opacity = 1 - now;
+
+                                                current_fs.css({
+                                                    'display': 'none',
+                                                    'position': 'relative'
+                                                });
+                                                next_fs.css({'opacity': opacity});
+                                            },
+                                            duration: 600
+                                        });
+                                    }
+                                });
+
+
+                            }
+                        });
+                    }
+                });
+
+
+            }else{
+                $("#msform").validate();
+                $("#msform").on('submit', function(e) {
+                    var isvalid = $("#msform").valid();
+                    if (isvalid) {
+                        e.preventDefault();
+                        button.attr("disabled", true);
+                        button.html('<span class="spinner-border spinner-border-sm"></span>' +
+                            '  Loading..');
+                        current_fs = button.parent();
+                        next_fs = button.parent().next();
+                        $.ajax({
+                            type: "POST",
+                            data: button.parent().serialize(),
+                            url: "{{ path('account_registration_submit') }}",
+                            dataType:"json",
+                            success: function(response){
+
+                                $.each(response, function(index, value) {
+                                    if(value=='success'){
+                                        button.attr("disabled", false);
+                                        button.html('Next Step');
+                                        //Add Class Active
+                                        $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+
+                                        //show the next fieldset
+                                        next_fs.show();
+                                        //hide the current fieldset with style
+                                        current_fs.animate({opacity: 0}, {
+                                            step: function(now) {
+                                                // for making fielset appear animation
+                                                opacity = 1 - now;
+
+                                                current_fs.css({
+                                                    'display': 'none',
+                                                    'position': 'relative'
+                                                });
+                                                next_fs.css({'opacity': opacity});
+                                            },
+                                            duration: 600
+                                        });
+                                    }
+                                });
+
+
+                            }
+                        });
+                    }
+                });
+
+
+            }
+
+
+        });
+
+        $(".previous").click(function(){
+
+            current_fs = $(this).parent();
+            previous_fs = $(this).parent().prev();
+
+            //Remove class active
+            $("#progressbar li").eq($("fieldset").index(current_fs)).removeClass("active");
+
+            //show the previous fieldset
+            previous_fs.show();
+
+            //hide the current fieldset with style
+            current_fs.animate({opacity: 0}, {
+                step: function(now) {
+            // for making fielset appear animation
+                    opacity = 1 - now;
+
+                    current_fs.css({
+                        'display': 'none',
+                        'position': 'relative'
+                    });
+                    previous_fs.css({'opacity': opacity});
+                },
+                duration: 600
+            });
+        });
+
+        $('.radio-group .radio').click(function(){
+            $(this).parent().find('.radio').removeClass('selected');
+            $(this).addClass('selected');
+        });
+
+        $(".submit").click(function(){
+            return false;
+        });
+
+        $('#mscbx').change(function () {
+            if ($(this).val().match('Yes')) {
+                $('#member_societies').html(
+                    '<div class="form-group col-md-12">' +
+                    '<label>Give names and details of societies below<span style="color: red;"><b>*</b></span></label>' +
+                    '<textarea required class="form-control" name="member_society_details" placeholder="Details here"></textarea> ' +
+                    '</div> <div class="form-group col-md-12">' +
+                    '<label>Please give membership number(s) (if known)</label>' +
+                    '<input type="text" name="member_society_number" class="form-control">' +
+                    '</div>');
+            } else {
+                $('#member_societies').html('');
+            }
+        });
+
+        $('#mjco').change(function () {
+            if ($(this).val().match('Yes')) {
+                $('#member_jco').html(
+                    '<div class="form-group col-md-12">' +
+                    '<label>Attach agreement copy<span style="color: red;"><b>*</b></span></label>' +
+                    '<input required type="file" accept="image/jpeg,image/png,application/pdf" name="member_jco_copy" class="form-control-file">' +
+                    '</div>');
+            } else {
+                $('#member_jco').html('');
+            }
+        });
+
+        $('#mdeceased').change(function () {
+            if ($(this).val().match('Yes')) {
+                $('#member_deceased').html(
+                    '<div class="form-group col-md-12">' +
+                    '<label>Attach letter of administration from court of law<span style="color: red;"><b>*</b></span></label>' +
+                    '<input required type="file" accept="image/jpeg,image/png,application/pdf" name="member_deceased_copy" class="form-control-file">' +
+                    '</div>');
+            } else {
+                $('#member_deceased').html('');
+            }
+        });
+
+        $('#mecbx').change(function () {
+            if ($(this).val().match('Yes')) {
+                $('#member_employment').html(
+                    '<div class="form-group col-md-12">' +
+                    '<label>Company/Organisation Name<span style="color: red;"><b>*</b></span></label>' +
+                    '<input required type="text" name="member_emp_company_name" class="form-control" placeholder="Name">' +
+                    '</div>' +
+                    '<div class="form-group col-md-12">' +
+                    '<label>Company/Organisation Address<span style="color: red;"><b>*</b></span></label>' +
+                    '<input required type="text" name="member_emp_company_address" class="form-control" placeholder="Address">' +
+                    '</div>');
+            } else {
+                $('#member_employment').html('');
+            }
+        });
+
+        $('#mradiocbx').change(function () {
+            if ($(this).val().match('Yes')) {
+                $('#member_radio').html(
+                    '<div class="form-group col-md-12">' +
+                    '<label>TV/Radio Station/Public Place Name<span style="color: red;"><b>*</b></span></label>' +
+                    '<input required type="text" name="member_radio_name" class="form-control" placeholder="Name">' +
+                    '</div>' +
+                    '<div class="form-group col-md-12">' +
+                    '<label>Attach a stamped letter from the above mentioned Radio/TV station/Public Place to prove this<span style="color: red;"><b>*</b></span></label>' +
+                    '<input required type="file" accept="image/jpeg,image/png,application/pdf" name="member_radio_file" class="form-control-file">' +
+                    '</div>');
+            } else {
+                $('#member_radio').html('');
+            }
+        });
+
+        $('#mgroup').change(function () {
+            if ($(this).val().match('Yes')) {
+                $('#member_group').html('<label class="col-md-12">Group Members</label>' +
+
+                    '<div class="col-md-6">'+
+                    '<div class="form-group col-md-12">' +
+                    '<label>First Name<span style="color: red;"><b>*</b></span></label>' +
+                    '<input required type="text" name="member_group_fname" class="form-control" placeholder="First Name">' +
+                    '</div>' +
+                    '<div class="form-group col-md-12">' +
+                    '<label>Last Name<span style="color: red;"><b>*</b></span></label>' +
+                    '<input required type="text" name="member_group_lname" class="form-control" placeholder=" Last Name">' +
+                    '</div>' +
+                    '<div class="form-group col-md-12">' +
+                    '<label>Tel/Mobile No<span style="color: red;"><b>*</b></span></label>' +
+                    '<input required type="text" name="member_group_tel" class="form-control" placeholder="Tel/Mobile No">' +
+                    '</div>' +
+                    '<div class="form-group col-md-12">' +
+                    '<label>Email<span style="color: red;"><b>*</b></span></label>' +
+                    '<input required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$" type="text" name="member_group_email" class="form-control" placeholder="Email">' +
+                    '</div>' +
+                    '</div>' +
+
+                    '<div class="col-md-6">'+
+                    '<div class="form-group col-md-12">' +
+                    '<label>First Name<span style="color: red;"><b>*</b></span></label>' +
+                    '<input required type="text" name="member_group_fname2" class="form-control" placeholder="First Name">' +
+                    '</div>' +
+                    '<div class="form-group col-md-12">' +
+                    '<label>Last Name<span style="color: red;"><b>*</b></span></label>' +
+                    '<input required type="text" name="member_group_lname2" class="form-control" placeholder=" Last Name">' +
+                    '</div>' +
+                    '<div class="form-group col-md-12">' +
+                    '<label>Tel/Mobile No<span style="color: red;"><b>*</b></span></label>' +
+                    '<input required type="text" name="member_group_tel2" class="form-control" placeholder="Tel/Mobile No">' +
+                    '</div>' +
+                    '<div class="form-group col-md-12">' +
+                    '<label>Email<span style="color: red;"><b>*</b></span></label>' +
+                    '<input required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$" type="text" name="member_group_email2" class="form-control" placeholder="Email">' +
+                    '</div>'+
+                    '</div>' +
+
+                    '<div class="col-md-6">'+
+                    '<div class="form-group col-md-12">' +
+                    '<label>First Name<span style="color: red;"><b>*</b></span></label>' +
+                    '<input required type="text" name="member_group_fname3" class="form-control" placeholder="First Name">' +
+                    '</div>' +
+                    '<div class="form-group col-md-12">' +
+                    '<label>Last Name<span style="color: red;"><b>*</b></span></label>' +
+                    '<input required type="text" name="member_group_lname3" class="form-control" placeholder=" Last Name">' +
+                    '</div>' +
+                    '<div class="form-group col-md-12">' +
+                    '<label>Tel/Mobile No<span style="color: red;"><b>*</b></span></label>' +
+                    '<input required type="text" name="member_group_tel3" class="form-control" placeholder="Tel/Mobile No">' +
+                    '</div>' +
+                    '<div class="form-group col-md-12">' +
+                    '<label>Email<span style="color: red;"><b>*</b></span></label>' +
+                    '<input required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$" type="text" name="member_group_email3" class="form-control" placeholder="Email">' +
+                    '</div>'+
+                    '</div>' +
+
+                    '<div class="col-md-6">'+
+                    '<div class="form-group col-md-12">' +
+                    '<label>First Name<span style="color: red;"><b>*</b></span></label>' +
+                    '<input required type="text" name="member_group_fname4" class="form-control" placeholder="First Name">' +
+                    '</div>' +
+                    '<div class="form-group col-md-12">' +
+                    '<label>Last Name<span style="color: red;"><b>*</b></span></label>' +
+                    '<input required type="text" name="member_group_lname4" class="form-control" placeholder=" Last Name">' +
+                    '</div>' +
+                    '<div class="form-group col-md-12">' +
+                    '<label>Tel/Mobile No<span style="color: red;"><b>*</b></span></label>' +
+                    '<input required type="text" name="member_group_tel4" class="form-control" placeholder="Tel/Mobile No">' +
+                    '</div>' +
+                    '<div class="form-group col-md-12">' +
+                    '<label>Email<span style="color: red;"><b>*</b></span></label>' +
+                    '<input required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$" type="text" name="member_group_email4" class="form-control" placeholder="Email">' +
+                    '</div>'+
+                    '</div>');
+            } else {
+                $('#member_group').html('');
+            }
+        });
+
+
+    });
+</script>
+</body>
+</html>

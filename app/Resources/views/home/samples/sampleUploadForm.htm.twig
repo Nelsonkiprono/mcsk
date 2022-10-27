@@ -1,0 +1,165 @@
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+        jQuery('#app_bundle_new_recording_form_declarationType').on('change', function () {
+            if (this.value === "Sound") {
+                jQuery("#sound").fadeIn("slow");
+                jQuery("#video").fadeOut("slow");
+
+                var label1 = $("#sound label");
+                label1.addClass("required");
+            } else if (this.value === "Video") {
+                jQuery("#video").fadeIn("slow");
+
+                var label2 = $("#video .col-md-12 div label");
+                label2.addClass("required");
+            } else if(this.value==="Audio Visual"){
+               
+                document.getElementById("app_bundle_new_recording_form_documentFile_documentFile_file").required = true;
+            }else {
+                jQuery("#sound").fadeOut("slow");
+
+                jQuery("#video").fadeIn("slow");
+            }
+
+        });
+    });
+</script>
+{{ form_start(form,{'attr': {'id': 'newForm' }}) }}
+<fieldset>
+    <legend>Section 1. Album Details</legend>
+
+    <div class="row" style="display: none">
+
+        <div class="col-md-6">
+            {{ form_row(form.declarationType,{
+                'attr':{'class': 'select'}
+            }) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_row(form.format,{
+
+                'attr': {'class': 'select'}
+            }) }}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            {{ form_row(form.albumTitle,{
+                'attr':{'class': 'form-control'}
+            }) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_row(form.mainArtist,{
+                'attr': {'class': 'form-control'}
+            }) }}
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            {{ form_row(form.yearProduction,{
+                'attr':{'class': 'form-control'},
+                'label':'Year of Creation'
+            }) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_row(form.countryOfProduction,{
+                'attr': {'class': 'select'}
+            }) }}
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            {{ form_row(form.recordingStudio) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_row(form.countryOfRecording,{
+                'attr': {'class': 'select'}
+            }) }}
+        </div>
+
+    </div>
+    <div class="row" id="video">
+        <div class="col-md-12">
+            <label for="app_bundle_new_recording_form_declarationForm" class="required">Work Declaration Form</label>
+            {{ form_row(form.documentFile,{
+                'label':false,
+                'attr': {'class':'customFileInput'}
+            }) }}
+
+        </div>
+
+    </div>
+</fieldset>
+<fieldset>
+    <legend>
+        Section 2: Tracks
+    </legend>
+   <div id="sound" style="display: none">
+    <div class="row">
+        <div class="col-md-6">
+            {{ form_row(form.musicCategory,{
+                'attr': {'class':'select'}
+            }) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_row(form.musicStyle,{
+                'attr': {'class':'select'}
+            }) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            {{ form_row(form.backgroundVocals,{
+                'attr': {'class':'form-control'}
+            }) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_row(form.trackProgramming,{
+                'attr': {'class':'form-control'}
+            }) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            {{ form_row(form.otherInstrumentalists,{
+                'attr': {'class':'form-control'}
+            }) }}
+        </div>
+
+    </div>
+   </div>
+    <div class="row">
+        <div class="col-md-6">
+            {{ form_row(form.recordingTitle,{
+                'label':'Song Title',
+            }) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_row(form.recordingFile,{
+                'label':'Track 1',
+                'attr': {'class':'customFileInput'}
+            }) }}
+        </div>
+    </div>
+
+</fieldset>
+<br/>
+<div class="form-group row right">
+    <div class="col-sm-6" style="">
+        <button id="new" type="submit" class="btn btn-primary btn-lg">Upload</button>
+    </div>
+</div>
+</div>
+{{ form_end(form) }}
+
+{% if profile.profileSamples | length > 0 %}
+    <script type="text/javascript">
+        jQuery(document).ready(function () {
+            jQuery('#continue').fadeIn("slow");
+        });
+    </script>
+{% endif %}

@@ -1,0 +1,55 @@
+{% extends 'adminBase.htm.twig' %}
+{% block title %}Payments Report{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header" data-background-color="red">
+                        <h4 class="title" style="color: #fff;">Payments Report</h4>
+                    </div>
+                    <div class="card-content table-responsive">
+                        <table id="data" class="table table-striped b-t b-b">
+                            <thead>
+                            <tr>
+                                <th>Paid On (m-d-Y)</th>
+                                <th>Names</th>
+                                <th>Mpesa Number</th>
+                                <th>Amount</th>
+                                <th>Mpesa Code</th>
+                                <th>Mpesa Status</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for user in users  %}
+                                <tr>
+                                    <td>{{ user.mpesaPaymentDate | date('m-d-Y \\a\\t g:ia') }}</td>
+                                    <td><a style="color:#0cc2aa">{{ user.applicantName }}</a></td>
+                                    <td>{{ user.mpesaNumber }}</td>
+                                    <td>{{ user.mpesaAmount }}</td>
+                                    <td>{{ user.mpesaVerificationCode }}{{ user.mpesaConfirmationCode }}</td>
+                                    <td>{{ user.mpesaStatus }}</td>
+                                </tr>
+                            {% endfor  %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+<script type="text/javascript">
+    $(document).ready( function () {
+        $('#data').DataTable({
+            dom: 'pBfrti',
+            buttons: [
+                'csv', 'excel', 'pdf', 'print'
+            ]
+        });
+    } );
+</script>
+{% endblock %}

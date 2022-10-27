@@ -1,0 +1,1108 @@
+{% extends 'adminBase.htm.twig' %}
+{% block title %}User Profile {% endblock %}
+{% block javascripts %}
+    <script type="text/javascript">
+        jQuery(document).ready(function () {
+            $('.js-request-document').on('click', function (e) {
+                e.preventDefault();
+
+                $(this).find('.fa-file-pdf-o')
+                    .removeClass('fa-file-pdf-o')
+                    .addClass('fa-spinner')
+                    .addClass('fa-spin');
+                $.ajax({
+                    url: $(this).data('url'),
+                    method: 'GET'
+                }).done(function () {
+                    $(".messages").fadeIn("slow");
+
+                    $("#request-doc")
+                        .removeClass('fa-spinner')
+                        .removeClass('fa-spin')
+                        .addClass('fa-check');
+                }).fail(function () {
+                    $(".failure").fadeIn("slow");
+
+                    $("#request-doc")
+                        .removeClass('fa-spinner')
+                        .removeClass('fa-spin')
+                        .addClass('fa-times');
+                });
+            });
+        })
+    </script>
+{% endblock %}
+{% block body %}
+    <div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header" style="background-color: #2E276D">
+                    <h4 class="title" style="color: #fff;">Review Profile</h4>
+                    <p class="category">Composer Profile</p>
+                </div>
+            </div>
+        </div>
+        <div id="content" class="app-content box-shadow-z0" role="main">
+
+            <div ui-view class="app-body" id="view">
+
+                <!-- ############ PAGE START-->
+
+
+                <div class="padding">
+                    {% if profile.user.userType is defined and profile.user.userType =="Deceased Producer" %}
+                        <div class="panel panel-default">
+                            <div class="panel-heading"><strong>Composer/Arranger/Author's Information</strong></div>
+                            <div class="panel-body">
+                                <div class="row">
+
+                                    <div class="col-md-6"><strong>Names:&nbsp;&nbsp; </strong>
+                                        {{ profile.producerName }}
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <strong>Status</strong>
+                                        Deceased
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6"><strong>Member Number:&nbsp;&nbsp; </strong>
+                                        {% if profile.memberNumber %}
+                                            {{ profile.memberNumber }}
+                                        {% else %}
+                                            Member Number Pending
+                                        {% endif %}
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading"><strong>Next of Kin/Beneficiary Information</strong></div>
+                            <div class="panel-body">
+                                <div class="row">
+
+                                    <div class="col-md-6"><strong>Names:&nbsp;&nbsp; </strong>
+                                        {{ profile.applicantName }}
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <strong>Date Of Birth</strong>
+                                        {% if profile.dateOfBirth %}
+                                            {{ profile.dateOfBirth | date('d/m/Y') }}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6"><strong>ID Number:&nbsp;&nbsp; </strong>
+                                        {{ profile.idNumber }}
+                                    </div>
+                                    <div class="col-md-6"><strong>Gender:&nbsp;&nbsp; </strong>
+
+                                        {{ profile.gender }}
+
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6"><strong>Registration Date:&nbsp;&nbsp; </strong>
+
+                                        {{ profile.createdAt | date('d/m/Y') }}
+
+                                    </div>
+                                    <div class="col-md-6"><strong>Status:&nbsp;&nbsp; </strong>
+                                        {% if profile.isPaid %}
+                                            Paid Membership
+                                        {% else %}
+                                            Payment Pending
+                                        {% endif %}
+
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    {% else %}
+                    <div class="panel panel-default">
+                        <div class="panel-heading"><strong>Personal Information</strong></div>
+                        <div class="panel-body">
+                            <div class="row">
+
+                                <div class="col-md-6"><strong>Names:&nbsp;&nbsp; </strong>
+                                    {{ profile.applicantName }}
+                                </div>
+
+                                <div class="col-md-6">
+                                    <strong>Date Of Birth</strong>
+                                    {% if profile.dateOfBirth %}
+                                        {{ profile.dateOfBirth | date('d/m/Y') }}
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6"><strong>ID Number:&nbsp;&nbsp; </strong>
+                                    {{ profile.idNumber }}
+                                </div>
+                                <div class="col-md-6"><strong>Gender:&nbsp;&nbsp; </strong>
+
+                                    {{ profile.gender }}
+
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6"><strong>Registration Date:&nbsp;&nbsp; </strong>
+
+                                    {{ profile.createdAt | date('d/m/Y') }}
+
+                                </div>
+                                <div class="col-md-6"><strong>Status:&nbsp;&nbsp; </strong>
+                                    {% if profile.isPaid %}
+                                        Paid Membership
+                                    {% else %}
+                                        Payment Pending
+                                    {% endif %}
+
+                                </div>
+                            </div>
+			   <div class="row">
+                                <div class="col-md-6"><strong>Are you a Member of other Collecting Societies?:&nbsp;&nbsp; </strong>
+
+                                    {% if profile.isCollectingSocietiesMember %}
+                                        Yes
+                                    {% else %}
+                                        No
+                                    {% endif %}
+
+                                </div>
+                                <div class="col-md-6"><strong>Collecting Societies:&nbsp;&nbsp; </strong>
+                                    {{ profile.collectingSocieties }}
+
+                                </div>
+                                <div class="col-md-6"><strong>Collecting Societies Membership Number(s) If known:&nbsp;&nbsp; </strong>
+                                    {{ profile.collectingSocietiesNumber }}
+
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6"><strong>Are you applying on behalf of a minor?:&nbsp;&nbsp; </strong>
+
+                                    {% if profile.isApplyingForMinor %}
+                                        Yes
+                                    {% else %}
+                                        No
+                                    {% endif %}
+
+                                </div>
+                                <div class="col-md-6"><strong>Minor's Name:&nbsp;&nbsp; </strong>
+                                    {{ profile.minorFname }}&nbsp;{{ profile.minorSname }}&nbsp;{{ profile.minorLname }}
+
+                                </div>
+                                <div class="col-md-6"><strong>Minor's Age:&nbsp;&nbsp; </strong>
+                                    {{ profile.minorAge }}
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6"><strong>Member Number:&nbsp;&nbsp; </strong>
+                                    {% if profile.memberNumber %}
+                                        {{ profile.memberNumber }}
+                                    {% else %}
+                                        Member Number Pending
+                                    {% endif %}
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% if profile.isGroup == "true" %}
+                    <div class="panel panel-default">
+                        <div class="panel-heading"><strong>Group Information</strong></div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-6"><strong>Group Member 1 Position:&nbsp;&nbsp; </strong>
+                                    {{ profile.firstGroupMemberPosition }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4"><strong>Group Member 1 First Names:&nbsp;&nbsp; </strong>
+                                    {{ profile.firstGroupMemberFname }}
+                                </div>
+                                <div class="col-md-4"><strong>Group Member 1 Second Names:&nbsp;&nbsp; </strong>
+                                    {{ profile.firstGroupMemberSname }}
+                                </div>
+                                <div class="col-md-4"><strong>Group Member 1 Last Names:&nbsp;&nbsp; </strong>
+                                    {{ profile.firstGroupMemberLname }}
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4"><strong>Group Member 1 PP NO/BIRTH CERT NO/ID NO:&nbsp;&nbsp; </strong>
+                                    {{ profile.firstGroupMemberId }}
+                                </div>
+                                <div class="col-md-4"><strong>Group Member 1 Phone:&nbsp;&nbsp; </strong>
+                                    {{ profile.firstGroupMemberPhone }}
+                                </div>
+                                <div class="col-md-4"><strong>Group Member 1 Email:&nbsp;&nbsp; </strong>
+                                    {{ profile.firstGroupMemberEmail }}
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-6"><strong>Group Member 2 Position:&nbsp;&nbsp; </strong>
+                                    {{ profile.secondGroupMemberPosition }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4"><strong>Group Member 2 First Names:&nbsp;&nbsp; </strong>
+                                    {{ profile.secondGroupMemberFname }}
+                                </div>
+                                <div class="col-md-4"><strong>Group Member 2 Second Names:&nbsp;&nbsp; </strong>
+                                    {{ profile.secondGroupMemberSname }}
+                                </div>
+                                <div class="col-md-4"><strong>Group Member 2 Last Names:&nbsp;&nbsp; </strong>
+                                    {{ profile.secondGroupMemberLname }}
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4"><strong>Group Member 2 PP NO/BIRTH CERT NO/ID NO:&nbsp;&nbsp; </strong>
+                                    {{ profile.secondGroupMemberId }}
+                                </div>
+                                <div class="col-md-4"><strong>Group Member 2 Phone:&nbsp;&nbsp; </strong>
+                                    {{ profile.secondGroupMemberPhone }}
+                                </div>
+                                <div class="col-md-4"><strong>Group Member 2 Email:&nbsp;&nbsp; </strong>
+                                    {{ profile.secondGroupMemberEmail }}
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-6"><strong>Group Member 3 Position:&nbsp;&nbsp; </strong>
+                                    {{ profile.thirdGroupMemberPosition }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4"><strong>Group Member 3 First Names:&nbsp;&nbsp; </strong>
+                                    {{ profile.thirdGroupMemberFname }}
+                                </div>
+                                <div class="col-md-4"><strong>Group Member 3 Second Names:&nbsp;&nbsp; </strong>
+                                    {{ profile.thirdGroupMemberSname }}
+                                </div>
+                                <div class="col-md-4"><strong>Group Member 3 Last Names:&nbsp;&nbsp; </strong>
+                                    {{ profile.thirdGroupMemberLname }}
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4"><strong>Group Member 3 PP NO/BIRTH CERT NO/ID NO:&nbsp;&nbsp; </strong>
+                                    {{ profile.thirdGroupMemberId }}
+                                </div>
+                                <div class="col-md-4"><strong>Group Member 3 Phone:&nbsp;&nbsp; </strong>
+                                    {{ profile.thirdGroupMemberPhone }}
+                                </div>
+                                <div class="col-md-4"><strong>Group Member 3 Email:&nbsp;&nbsp; </strong>
+                                    {{ profile.thirdGroupMemberEmail }}
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-6"><strong>Group Member 4 Position:&nbsp;&nbsp; </strong>
+                                    {{ profile.fourthGroupMemberPosition }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4"><strong>Group Member 4 First Names:&nbsp;&nbsp; </strong>
+                                    {{ profile.fourthGroupMemberFname }}
+                                </div>
+                                <div class="col-md-4"><strong>Group Member 4 Second Names:&nbsp;&nbsp; </strong>
+                                    {{ profile.fourthGroupMemberSname }}
+                                </div>
+                                <div class="col-md-4"><strong>Group Member 4 Last Names:&nbsp;&nbsp; </strong>
+                                    {{ profile.fourthGroupMemberLname }}
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4"><strong>Group Member 4 PP NO/BIRTH CERT NO/ID NO:&nbsp;&nbsp; </strong>
+                                    {{ profile.fourthGroupMemberId }}
+                                </div>
+                                <div class="col-md-4"><strong>Group Member 4 Phone:&nbsp;&nbsp; </strong>
+                                    {{ profile.fourthGroupMemberPhone }}
+                                </div>
+                                <div class="col-md-4"><strong>Group Member 4 Email:&nbsp;&nbsp; </strong>
+                                    {{ profile.fourthGroupMemberEmail }}
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-6"><strong>Group Member 5 Position:&nbsp;&nbsp; </strong>
+                                    {{ profile.fifthGroupMemberPosition }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4"><strong>Group Member 5 First Names:&nbsp;&nbsp; </strong>
+                                    {{ profile.fifthGroupMemberFname }}
+                                </div>
+                                <div class="col-md-4"><strong>Group Member 5 Second Names:&nbsp;&nbsp; </strong>
+                                    {{ profile.fifthGroupMemberSname }}
+                                </div>
+                                <div class="col-md-4"><strong>Group Member 5 Last Names:&nbsp;&nbsp; </strong>
+                                    {{ profile.fifthGroupMemberLname }}
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4"><strong>Group Member 5 PP NO/BIRTH CERT NO/ID NO:&nbsp;&nbsp; </strong>
+                                    {{ profile.fifthGroupMemberId }}
+                                </div>
+                                <div class="col-md-4"><strong>Group Member 5 Phone:&nbsp;&nbsp; </strong>
+                                    {{ profile.fifthGroupMemberPhone }}
+                                </div>
+                                <div class="col-md-4"><strong>Group Member 5 Email:&nbsp;&nbsp; </strong>
+                                    {{ profile.fifthGroupMemberEmail }}
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-6"><strong>Group Member 6 Position:&nbsp;&nbsp; </strong>
+                                    {{ profile.sixthGroupMemberPosition }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4"><strong>Group Member 6 First Names:&nbsp;&nbsp; </strong>
+                                    {{ profile.sixthGroupMemberFname }}
+                                </div>
+                                <div class="col-md-4"><strong>Group Member 6 Second Names:&nbsp;&nbsp; </strong>
+                                    {{ profile.sixthGroupMemberSname }}
+                                </div>
+                                <div class="col-md-4"><strong>Group Member 6 Last Names:&nbsp;&nbsp; </strong>
+                                    {{ profile.sixthGroupMemberLname }}
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4"><strong>Group Member 6 PP NO/BIRTH CERT NO/ID NO:&nbsp;&nbsp; </strong>
+                                    {{ profile.sixthGroupMemberId }}
+                                </div>
+                                <div class="col-md-4"><strong>Group Member 6 Phone:&nbsp;&nbsp; </strong>
+                                    {{ profile.sixthGroupMemberPhone }}
+                                </div>
+                                <div class="col-md-4"><strong>Group Member 6 Email:&nbsp;&nbsp; </strong>
+                                    {{ profile.sixthGroupMemberEmail }}
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    {% endif %}
+                    <div class="panel panel-default">
+                        <div class="panel-heading"><strong>Next of Kin/Beneficiary Information</strong></div>
+                        <div class="panel-body">
+                            <div class="row">
+
+                                <div class="col-md-6"><strong>Names:&nbsp;&nbsp; </strong>
+                                    {{ profile.applicantName }}
+                                </div>
+
+                                <div class="col-md-6">
+                                    <strong>Date Of Birth</strong>
+                                    {% if profile.dateOfBirth %}
+                                        {{ profile.dateOfBirth | date('d/m/Y') }}
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6"><strong>ID Number:&nbsp;&nbsp; </strong>
+                                    {{ profile.idNumber }}
+                                </div>
+                                <div class="col-md-6"><strong>Gender:&nbsp;&nbsp; </strong>
+
+                                    {{ profile.gender }}
+
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6"><strong>Registration Date:&nbsp;&nbsp; </strong>
+
+                                    {{ profile.createdAt | date('d/m/Y') }}
+
+                                </div>
+                                <div class="col-md-6"><strong>Status:&nbsp;&nbsp; </strong>
+                                    {% if profile.isPaid %}
+                                        Paid Membership
+                                    {% else %}
+                                        Payment Pending
+                                    {% endif %}
+
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading"><strong>Address Details</strong></div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-6"><strong>Physical Address:&nbsp;&nbsp; </strong>
+                                    {{ profile.physicalAddress }}
+                                </div>
+                                <div class="col-md-6"><strong>Postal Address:&nbsp;&nbsp; </strong>
+                                    {{ profile.postalAddress }}
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <strong>Postal Code:&nbsp;&nbsp; </strong>
+                                    {{ profile.postalCode }}
+
+                                </div>
+
+                                <div class="col-md-6">
+                                    <strong>City:&nbsp;&nbsp; </strong>
+                                    {{ profile.city }}
+
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <strong>Mobile Number:&nbsp;&nbsp; </strong>
+                                    {{ profile.mobileNumber }}
+
+                                </div>
+                                <div class="col-md-6">
+                                    <strong>Tel Number:&nbsp;&nbsp; </strong>
+                                    {{ profile.telephoneNumber }}
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <strong>Email Address:&nbsp;&nbsp; </strong>
+                                    {{ profile.emailAddress }}
+
+                                </div>
+                                <div class="col-md-6">
+                                    <strong>Website:&nbsp;&nbsp; </strong>
+                                    {{ profile.website }}
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading"><strong>Bank Details</strong></div>
+                        <div class="panel-body">
+
+                            <div class="row">
+                                <div class="col-md-6"><strong>Account Name:&nbsp;&nbsp; </strong>
+                                    {{ profile.accountName }}
+                                </div>
+                                <div class="col-md-6">
+                                    <strong>Account Number:&nbsp;&nbsp; </strong>
+                                    {{ profile.accountNumber }}
+
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <strong>Bank:&nbsp;&nbsp; </strong>
+                                    {{ profile.bank }}
+
+                                </div>
+
+                                <div class="col-md-6">
+                                    <strong>Bank Branch:&nbsp;&nbsp; </strong>
+                                    {{ profile.bankBranch }}
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading"><strong>Payment Details</strong></div>
+                        <div class="panel-body">
+
+                            <div class="row">
+                                <div class="col-md-6"><strong>Mpesa Confirmation Code:&nbsp;&nbsp; </strong>
+                                    {{ profile.mpesaConfirmationCode }}
+                                </div>
+                                <div class="col-md-6"><strong>Payment Date:&nbsp;&nbsp; </strong>
+                                    {{ profile.mpesaPaymentDate | date }}
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <strong>Mpesa Number:&nbsp;&nbsp; </strong>
+                                    {{ profile.mpesaNumber }}
+
+                                </div>
+
+                                <div class="col-md-6">
+                                    <strong>Amount:&nbsp;&nbsp; </strong>
+                                    Ksh {{ profile.mpesaAmount }}
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- Documents -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading"><strong>Documents</strong></div>
+                        <div class="panel-body">
+
+                            <div class="row">
+                                <div class="col-md-6">
+
+                                    {% if profile.profileDocuments | length > 0 %}
+                                        <p>This member has submitted the following documents</p>
+                                        <table>
+                                            {% for profileDocument in profile.profileDocuments %}
+                                                <tr>
+                                                    <td width="200">
+                                                        <b><i>{{ profileDocument.documentName }}</i></b>
+                                                    </td>
+                                                    <td width="200">
+                                                        {% if profileDocument.documentFileName|last == 'G' or profileDocument.documentFileName|last == 'g' %}
+                                                            <img width="200"
+                                                                 src="{{ asset('assets/documents/' ~  profileDocument.documentFileName )}}"/>
+                                                        {% else %}
+                                                            <div style="height: 115px;padding-top:30px">
+                                                                <a href="{{ asset('assets/documents/' ~  profileDocument.documentFileName )}}" download>Click
+                                                                    to download</a>
+                                                            </div>
+                                                        {% endif %}
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                        </table>
+                                    {% else %}
+                                        <p>This Profile does not have the required Documents</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="row">
+
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Documents -->
+                    <!-- Recordings -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading"><strong>Musical Works</strong></div>
+                        <div class="panel-body">
+
+                            <div class="row">
+                                <div class="col-md-6">
+
+                                    {% if profile.profileSamples | length > 0 %}
+                                        <p>This member has submitted the following musical works</p>
+                                        <table style="width:800px">
+                                            {% for profileSample in profile.profileSamples %}
+                                                <tr>
+                                                    <td width="400">
+                                                        <b><i>{{ profileSample.albumTitle }}</i></b><br/>
+                                                        {% if profileSample.declarationType=="Audio Visual" and profileSample.documentFile %}
+                                                        <div style="height: 115px;padding-top:30px">
+                                                            <a href="{{ asset('assets/recordings/') }}{{ profileSample.documentFile.documentFileName }}">Click
+                                                                to view Audio Visual Declaration Form</a>
+                                                        </div>
+                                                        {% endif %}
+
+                                                    </td><td>
+                                                        <video width="320" height="240" controls>
+                                                            <source src="{{ asset('assets/recordings/') }}{{ profileSample.recordingFile.documentFileName }}" type="video/mp4">
+                                                            Your browser does not support the video tag.
+                                                        </video>
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                        </table>
+                                    {% else %}
+                                        <p>This member has not submitted any musical works</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="row">
+
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Recordings -->
+
+                    <!-- Membership Approval -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading"><strong>Membership Approval</strong></div>
+                        <div class="panel-body">
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    {% if profile.profileStatus == "Rejected" %}
+                                        <strong>Rejected
+                                            On:</strong> {{ profile.membershipApprovedAt | date("F jS \\a\\t g:ia") }}
+                                        <br/>
+                                        <strong>Rejected By: </strong> {{ profile.membershipApprovedBy.fullName }}<br/>
+                                        <strong>Reason:</strong> {{ profile.statusDescription }}
+                                    {% elseif profile.profileStatus == "Approved" %}
+                                        <strong>Approved
+                                            On:</strong> {{ profile.membershipApprovedAt | date("F jS \\a\\t g:ia") }}
+                                        <br/>
+                                        <strong>Approved By: </strong> {{ profile.membershipApprovedBy.fullName }}<br/>
+                                        <strong>Comment:</strong> {{ profile.statusDescription }}
+
+
+                                    {% else %}
+                                        {% if profile.profileDocuments | length > 5 and profile.isPaid %}
+                                            <h6>Admin Approval</h6>
+                                            {{ form_start(profileReviewForm) }}
+                                            <textarea type="text" name="comment" placeholder="Comment"></textarea><br/>
+                                            <br/>
+                                            <input type="radio" name="approval" checked value="Approved"> Approve&nbsp;
+                                            <input type="radio" name="approval" value="denied">&nbsp;Deny<br/><br/>
+                                            <button class="btn btn-primary" type="submit"><i class="fa fa-edit"></i>
+                                                Submit
+                                            </button>
+                                            {{ form_end(profileReviewForm) }}
+                                        {% else %}
+                                            <p>This Member has not provided the required documents or the Payment has not been received.</p>
+                                        {% endif %}
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="row">
+
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Membership Approval -->
+
+                    <!-- Admin Approval -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading"><strong>Admin Approval</strong></div>
+                        <div class="panel-body">
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    {% if profile.isMembershipApproved == true %}
+                                        <h6>Admin Member</h6>
+                                        <strong>Approved
+                                            On:</strong> {{ profile.membershipApprovedAt | date("F jS \\a\\t g:ia") }}
+                                        <br/>
+                                        <strong>Approved By: </strong> {{ profile.membershipApprovedBy.fullName }}<br/>
+                                        <strong>Comment:</strong> {{ profile.statusDescription }}
+
+                                    {% elseif profile.isMembershipApproved == true %}
+                                        <h6>Admin Member</h6>
+                                        <strong>Rejected
+                                            On:</strong> {{ profile.membershipApprovedAt | date("F jS \\a\\t g:ia") }}
+                                        <br/>
+                                        <strong>Rejected By: </strong> {{ profile.membershipApprovedBy.fullName }}<br/>
+                                        <strong>Reason:</strong> {{ profile.statusDescription }}
+                                    {% else %}
+                                        <p>Approval Pending</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="row">
+
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Admin Approval -->
+
+                    <!-- Committee Approval -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading"><strong>Committee Approval</strong></div>
+                        <div class="panel-body">
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    {% if profile.profileStatus == "Rejected" %}
+                                        <strong>Rejected On:</strong> {{ profile.membershipApprovedAt | date("F jS \\a\\t g:ia") }}<br/>
+                                        <strong>Rejected By: </strong> {{ profile.membershipApprovedBy.fullName }}<br/>
+                                        <strong>Reason:</strong> {{ profile.statusDescription }}
+
+                                    {% else %}
+                                        <!-- Check if Membership has approved -->
+                                        {% if profile.isMembershipApproved == true and profile.isCommitteeApproved == false and profile.isBoardRejected == false %}
+                                            <!-- Make sure this Committee Member hasn't reviewed this Profile Yet -->
+                                            {% if app.user != profile.committeeApprover1 and app.user != profile.committeeApprover2 %}
+
+                                                <table style="width:100%">
+                                                    <tr>
+                                                        <td>
+                                                            {% if profile.committeeApprover1 %}
+                                                                <h6>Committee Member</h6>
+                                                                <strong>Approved On:</strong> {{ profile.committeeApproval1At | date("F jS \\a\\t g:ia") }}<br/>
+                                                                <strong>Approved By: </strong> {{ profile.committeeApprover1.fullName }}<br/>
+                                                            {% else %}
+                                                                <h6>Committee Member</h6>
+                                                                <p>Approval Pending</p>
+                                                            {% endif %}
+                                                        </td>
+                                                        {#<td>
+                                                            {% if profile.committeeApprover2 %}
+                                                                <h6>Committee Chair</h6>
+                                                                <strong>Approved On:</strong> {{ profile.committeeApproval2At | date("F jS \\a\\t g:ia") }}<br/>
+                                                                <strong>Approved By: </strong> {{ profile.committeeApprover2.fullName }}<br/>
+                                                            {% else %}
+                                                                <h6>Committee Chair</h6>
+                                                                <p>Approval Pending</p>
+                                                            {% endif %}
+
+                                                        </td>#}
+                                                        {#<td>
+                                                            {% if profile.committeeApprover3 %}
+                                                                <h6>Committee Member 3</h6>
+                                                                <strong>Approved On:</strong> {{ profile.committeeApproval3At | date("F jS \\a\\t g:ia") }}<br/>
+                                                                <strong>Approved By: </strong> {{ profile.committeeApprover3.fullName }}<br/>
+                                                            {% else %}
+                                                                <h6>Committee Member 3</h6>
+                                                                <p>Approval Pending</p>
+                                                            {% endif %}
+
+                                                        </td>#}
+                                                    </tr>
+                                                </table>
+                                            {% else %}
+                                                <table style="width: 100%">
+                                                    <tr>
+                                                        <td>
+                                                            {% if profile.committeeApprover1 %}
+                                                                <h6>Committee Member</h6>
+                                                                <strong>Approved On:</strong> {{ profile.committeeApproval1At | date("F jS \\a\\t g:ia") }}<br/>
+                                                                <strong>Approved By: </strong> {{ profile.committeeApprover1.fullName }}<br/>
+                                                            {% else %}
+                                                                {% if is_granted('ROLE_COMMITTEE') and app.user.isCommitteeChairMember == "false" and app.user.isCommitteeMember == "true"%}
+                                                                    <h6>Committee Member</h6>
+                                                                    {{ form_start(boardReviewForm) }}
+                                                                    <textarea type="text" name="comment" placeholder="Comment"></textarea><br/><br/>
+                                                                    <input type="radio" name="approval" checked value="Approved"> Approve&nbsp;
+                                                                    <input type="hidden" name="type"  value="Com">
+                                                                    <input type="radio" name="approval" value="denied">&nbsp;Deny<br/><br/>
+                                                                    <button class="btn btn-primary" type="submit"><i class="fa fa-edit"></i> Submit</button>
+                                                                    {{ form_end(boardReviewForm) }}
+                                                                {% endif %}
+
+                                                            {% endif %}
+                                                        </td>
+                                                        {#<td>
+                                                            {% if profile.committeeApprover2 %}
+                                                                <h6>Committee Chair</h6>
+                                                                <strong>Approved On:</strong> {{ profile.committeeApproval2At | date("F jS \\a\\t g:ia") }}<br/>
+                                                                <strong>Approved By: </strong> {{ profile.committeeApprover2.fullName }}<br/>
+                                                            {% elseif profile.committeeApprover1 %}
+                                                                {% if is_granted('ROLE_COMMITTEE') and app.user.isCommitteeChairMember == "true" and app.user.isCommitteeMember == "true" %}
+                                                                    <h6>Committee Chair</h6>
+                                                                    {{ form_start(boardReviewForm) }}
+                                                                    <textarea type="text" name="comment" placeholder="Comment"></textarea><br/><br/>
+                                                                    <input type="radio" name="approval" checked value="Approved"> Approve&nbsp;
+                                                                    <input type="hidden" name="type"  value="Com">
+                                                                    <input type="radio" name="approval" value="denied">&nbsp;Deny<br/><br/>
+                                                                    <button class="btn btn-primary" type="submit"><i class="fa fa-edit"></i> Submit</button>
+                                                                    {{ form_end(boardReviewForm) }}
+                                                                {% endif %}
+                                                            {% else %}
+                                                            {% endif %}
+                                                        </td>#}
+                                                        {#<td>
+                                                            {% if profile.committeeApprover3 %}
+                                                                <h6>Committee Member 3</h6>
+                                                                <strong>Approved On:</strong> {{ profile.committeeApproval3At | date("F jS \\a\\t g:ia") }}<br/>
+                                                                <strong>Approved By: </strong> {{ profile.committeeApprover3.fullName }}<br/>
+                                                            {% elseif profile.committeeApprover2 %}
+                                                                {% if is_granted('ROLE_COMMITTEE') %}
+                                                                    <h6>Committee Member 3</h6>
+                                                                    {{ form_start(boardReviewForm) }}
+                                                                    <textarea type="text" name="comment" placeholder="Comment"></textarea><br/><br/>
+                                                                    <input type="radio" name="approval" checked value="Approved"> Approve&nbsp;
+                                                                    <input type="hidden" name="type"  value="Com">
+                                                                    <input type="radio" name="approval" value="denied">&nbsp;Deny<br/><br/>
+                                                                    <button class="btn btn-primary" type="submit"><i class="fa fa-edit"></i> Submit</button>
+                                                                    {{ form_end(boardReviewForm) }}
+                                                                {% endif %}
+                                                            {% else %}
+                                                            {% endif %}
+                                                        </td>#}
+                                                    </tr>
+                                                </table>
+
+
+                                            {% endif %}
+                                        {% elseif profile.isCommitteeApproved == true and profile.isCommitteeRejected == false %}
+
+
+                                                <table style="width:100%">
+                                                    <tr>
+                                                        <td>
+                                                            {% if profile.committeeApprover1 %}
+                                                                <h6>Committee Member</h6>
+                                                                <strong>Approved On:</strong> {{ profile.committeeApproval1At | date("F jS \\a\\t g:ia") }}<br/>
+                                                                <strong>Approved By: </strong> {{ profile.committeeApprover1.fullName }}<br/>
+                                                            {% else %}
+                                                                <h6>Committee Member</h6>
+                                                                <p>Approval Pending</p>
+                                                            {% endif %}
+                                                        </td>
+                                                       {# <td>
+                                                            {% if profile.committeeApprover2 %}
+                                                                <h6>Committee Chair</h6>
+                                                                <strong>Approved On:</strong> {{ profile.committeeApproval2At | date("F jS \\a\\t g:ia") }}<br/>
+                                                                <strong>Approved By: </strong> {{ profile.committeeApprover2.fullName }}<br/>
+                                                            {% else %}
+                                                                <h6>Committee Chair</h6>
+                                                                <p>Approval Pending</p>
+                                                            {% endif %}
+
+                                                        </td>#}
+                                                        {#<td>
+                                                            {% if profile.committeeApprover3 %}
+                                                                <h6>Committee Member 3</h6>
+                                                                <strong>Approved On:</strong> {{ profile.committeeApproval3At | date("F jS \\a\\t g:ia") }}<br/>
+                                                                <strong>Approved By: </strong> {{ profile.committeeApprover3.fullName }}<br/>
+                                                            {% else %}
+                                                                <h6>Committee Member 3</h6>
+                                                                <p>Approval Pending</p>
+                                                            {% endif %}
+
+                                                        </td>#}
+                                                    </tr>
+                                                </table>
+
+                                        {% elseif profile.isCommitteeRejected == true %} 
+                                            <p>Profile Rejected</p>
+                                            <strong>Rejected On:</strong> {{ profile.committeeRejectionAt | date("F jS \\a\\t g:ia") }}<br/>
+                                            <strong>Rejected By: </strong> {{ profile.committeeRejectionBy.fullName }}<br/>
+                                            <strong>Reason:</strong> {{ profile.committeeRejectionReason }}
+                                        {% elseif profile.nrCommitteeApprovals == 1 %}
+                                            <p>Profile Approved </p><br/>
+                                            <table style="width: 100%">
+                                                <tr>
+                                                    <td>
+                                                    {% if profile.committeeApprover1 %}
+                                                        <h6>Committee Member</h6>
+                                                        <strong>Approved On:</strong> {{ profile.committeeApproval1At | date("F jS \\a\\t g:ia") }}<br/>
+                                                        <strong>Approved By: </strong> {{ profile.committeeApprover1.fullName }}<br/>
+                                                    {% endif %}
+                                                    </td>
+                                                    <td>
+                                                    {% if profile.committeeApprover2 %}
+                                                        <h6>Committee Chair</h6>
+                                                        <strong>Approved On:</strong> {{ profile.committeeApproval2At | date("F jS \\a\\t g:ia") }}<br/>
+                                                        <strong>Approved By: </strong> {{ profile.committeeApprover2.fullName }}<br/>
+                                                    {% endif %}
+                                                    </td>
+{#                                                    <td>#}
+{#                                                    {% if profile.committeeApprover3 %}#}
+{#                                                        <h6>Committee Member 3</h6>#}
+{#                                                        <strong>Approved On:</strong> {{ profile.committeeApproval3At | date("F jS \\a\\t g:ia") }}<br/>#}
+{#                                                        <strong>Approved By: </strong> {{ profile.committeeApprover3.fullName }}<br/>#}
+{#                                                    {% endif %}#}
+{#                                                    </td>#}
+                                                </tr>
+                                            </table>
+                                        {% else %}
+                                            <p>Pending Membership Approval</p>
+
+                                        {% endif %}
+                                    {% endif %}
+                                    {% if profile.isMembershipApproved == true and profile.nrCommitteeApprovals == null %}
+                                        <p>Pending Committee Approval</p>
+                                    {% endif %}
+                                </div></div>
+                            <div class="row">
+
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Committee Approval -->
+
+                    <!-- Board Approval -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading"><strong>Board Approval</strong></div>
+                        <div class="panel-body">
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    {% if profile.profileStatus == "Rejected" %}
+                                        <strong>Rejected On:</strong> {{ profile.membershipApprovedAt | date("F jS \\a\\t g:ia") }}<br/>
+                                        <strong>Rejected By: </strong> {{ profile.membershipApprovedBy.fullName }}<br/>
+                                        <strong>Reason:</strong> {{ profile.statusDescription }}
+
+                                    {% else %}
+                                        <!-- Check if Membership has approved -->
+                                        {% if profile.isMembershipApproved == true and profile.isCommitteeApproved == true and profile.isBoardRejected == false %}
+                                            <!-- Make sure this Board Member hasn't reviewed this Profile Yet -->
+                                            {% if app.user != profile.boardApprover1%}
+
+                                                <table style="width:100%">
+                                                    <tr>
+                                                        <td>
+                                                            {% if profile.boardApprover1 %}
+                                                                <h6>Board Member</h6>
+                                                                <strong>Approved On:</strong> {{ profile.approval1At | date("F jS \\a\\t g:ia") }}<br/>
+                                                                <strong>Approved By: </strong> {{ profile.boardApprover1.fullName }}<br/>
+                                                            {% else %}
+                                                                <h6>Board Member</h6>
+                                                                <p>Approval Pending</p>
+                                                            {% endif %}
+                                                        </td>
+                                                       {# <td>
+                                                            {% if profile.boardApprover2 %}
+                                                                <h6>Board Member 2</h6>
+                                                                <strong>Approved On:</strong> {{ profile.approval2At | date("F jS \\a\\t g:ia") }}<br/>
+                                                                <strong>Approved By: </strong> {{ profile.boardApprover2.fullName }}<br/>
+                                                            {% else %}
+                                                                <h6>Board Member 2</h6>
+                                                                <p>Approval Pending</p>
+                                                            {% endif %}
+
+                                                        </td>
+                                                        <td>
+                                                            {% if profile.boardApprover3 %}
+                                                                <h6>Board Member 3</h6>
+                                                                <strong>Approved On:</strong> {{ profile.approval3At | date("F jS \\a\\t g:ia") }}<br/>
+                                                                <strong>Approved By: </strong> {{ profile.boardApprover3.fullName }}<br/>
+                                                            {% else %}
+                                                                <h6>Board Member 3</h6>
+                                                                <p>Approval Pending</p>
+                                                            {% endif %}
+
+                                                        </td>#}
+                                                    </tr>
+                                                </table>
+                                            {% else %}
+                                                <table style="width: 100%">
+                                                    <tr>
+                                                        <td>
+                                                            {% if profile.boardApprover1 %}
+                                                                <h6>Board Member</h6>
+                                                                <strong>Approved On:</strong> {{ profile.approval1At | date("F jS \\a\\t g:ia") }}<br/>
+                                                                <strong>Approved By: </strong> {{ profile.boardApprover1.fullName }}<br/>
+                                                            {% else %}
+                                                                {% if is_granted('ROLE_BOARD') and app.user.isCommitteeChairMember == "false" and app.user.isCommitteeMember == "false" %}
+                                                                    <h6>Board Member</h6>
+                                                                    {{ form_start(boardReviewForm) }}
+                                                                    {% for profileDocument in profile.corporateProfileDocuments %}
+                                                                        {% if profileDocument.documentName == 'DEED-OF-ASSIGNMENT' %}
+                                                                            <input type="hidden" name="doc_name"  value="{{ profileDocument.documentFileName }}">
+                                                                        {% endif %}
+                                                                        {% if profileDocument.documentName == 'MECHANICAL-RIGHTS-FORM' %}
+                                                                            <input type="hidden" name="doc_name2"  value="{{ profileDocument.documentFileName }}">
+                                                                        {% endif %}
+                                                                    {% endfor %}
+                                                                    <textarea type="text" name="comment" placeholder="Comment"></textarea><br/><br/>
+                                                                    <input type="radio" name="approval" checked value="Approved"> Approve&nbsp;
+                                                                    <input type="hidden" name="type"  value="Bod">
+                                                                    <input type="radio" name="approval" value="denied">&nbsp;Deny<br/><br/>
+                                                                    <button class="btn btn-primary" type="submit"><i class="fa fa-edit"></i> Submit</button>
+                                                                    {{ form_end(boardReviewForm) }}
+                                                                {% endif %}
+                                                            {% endif %}
+                                                        </td>
+                                                        {#<td>
+                                                            {% if profile.boardApprover2 %}
+                                                                <h6>Board Member 2</h6>
+                                                                <strong>Approved On:</strong> {{ profile.approval2At | date("F jS \\a\\t g:ia") }}<br/>
+                                                                <strong>Approved By: </strong> {{ profile.boardApprover2.fullName }}<br/>
+                                                            {% elseif profile.boardApprover1 %}
+                                                                {% if is_granted('ROLE_BOARD') and app.user.isCommitteeMember == "false" %}
+                                                                    <h6>Board Member 2</h6>
+                                                                    {{ form_start(boardReviewForm) }}
+                                                                    <textarea type="text" name="comment" placeholder="Comment"></textarea><br/><br/>
+                                                                    <input type="radio" name="approval" checked value="Approved"> Approve&nbsp;
+                                                                    <input type="hidden" name="type"  value="Bod">
+                                                                    <input type="radio" name="approval" value="denied">&nbsp;Deny<br/><br/>
+                                                                    <button class="btn btn-primary" type="submit"><i class="fa fa-edit"></i> Submit</button>
+                                                                    {{ form_end(boardReviewForm) }}
+                                                                {% endif %}
+                                                            {% else %}
+                                                            {% endif %}
+                                                        </td>
+                                                        <td>
+                                                            {% if profile.boardApprover3 %}
+                                                                <h6>Board Member 3</h6>
+                                                                <strong>Approved On:</strong> {{ profile.approval3At | date("F jS \\a\\t g:ia") }}<br/>
+                                                                <strong>Approved By: </strong> {{ profile.boardApprover3.fullName }}<br/>
+                                                            {% elseif profile.boardApprover2 %}
+                                                                {% if is_granted('ROLE_BOARD') and app.user.isCommitteeMember == "false" %}
+                                                                    <h6>Board Member 3</h6>
+                                                                    {{ form_start(boardReviewForm) }}
+                                                                    <textarea type="text" name="comment" placeholder="Comment"></textarea><br/><br/>
+                                                                    <input type="radio" name="approval" checked value="Approved"> Approve&nbsp;
+                                                                    <input type="hidden" name="type"  value="Bod">
+                                                                    <input type="radio" name="approval" value="denied">&nbsp;Deny<br/><br/>
+                                                                    <button class="btn btn-primary" type="submit"><i class="fa fa-edit"></i> Submit</button>
+                                                                    {{ form_end(boardReviewForm) }}
+                                                                {% endif %}
+                                                            {% else %}
+                                                            {% endif %}
+                                                        </td>#}
+                                                    </tr>
+                                                </table>
+
+
+                                            {% endif %}
+                                        {% elseif profile.isBoardRejected == true %}
+                                            <p>Profile Rejected</p>
+                                            <strong>Rejected On:</strong> {{ profile.boardRejectionAt | date("F jS \\a\\t g:ia") }}<br/>
+                                            <strong>Rejected By: </strong> {{ profile.boardRejectionBy.fullName }}<br/>
+                                            <strong>Reason:</strong> {{ profile.boardRejectionReason }}
+                                        {% else %}
+                                            <p>Pending Membership and Committee Approval</p>
+
+                                        {% endif %}
+                                    {% endif %}
+                                    {% if profile.nrBoardApprovals == null and profile.nrCommitteeApprovals == 1 %}
+                                        <p>Pending Board Approval</p>
+                                    {% endif %}
+                                </div></div>
+                            <div class="row">
+
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Board Approval -->
+
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+{% endblock %}

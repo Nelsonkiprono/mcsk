@@ -1,0 +1,18 @@
+# This file is auto-generated during the composer install
+parameters:
+    database_host: 35.241.224.52
+    database_port: 3306
+    database_name: member_registration_db
+    database_user: mr_db_user
+    database_password: tx1ZL7YQ3CJA87Km2UUF
+    mailer_transport: smtp   
+    mailer_host: smtp.sendgrid.net
+    mailer_port: 2525
+    mailer_user: apikey
+    mailer_password: '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'
+    #mailer_host: smtp.eu.mailgun.org
+    #mailer_port: 2525
+    #mailer_user: postmaster@mcsk.incentroafrica.com
+    #mailer_password: '19d0aa5a745f15e1a7bc3308c7be50d4-71b35d7e-a272408d'
+    #mailer_encryption: tls
+    secret: cade8F70! 

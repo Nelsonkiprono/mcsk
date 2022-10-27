@@ -1,0 +1,152 @@
+<div class="uploaded">
+    <ul>
+        <ul style="list-style: none">
+
+
+            {% if app.user.userType=="Deceased Producer" %}
+                <li>
+                    <input type="checkbox" disabled id="deedofassignment" value="">1. A Copy of Signed Deed of Assignment
+                </li>
+                <li>
+                    <input type="checkbox" disabled id="mechanicalrights" value="">2. A Copy of Signed Mechanical Rights Agreement
+                </li>
+                <li>
+                    <input type="checkbox" disabled id="passport" value="">3. A Coloured Passport Size photograph
+                </li>
+                <li>&nbsp;</li>
+                <li><input type="checkbox" disabled id="idcopy" value="">4. Frontside - Valid National Identity Card, Passport or Birth
+                    Certificate
+                </li>
+                 <li><input type="checkbox" disabled id="idbackcopy" value="">5. Backside - Valid National Identity Card, Passport or Birth
+                    Certificate
+                </li>
+                <li>&nbsp;</li>
+                <li><input type="checkbox" disabled id="kra" value="">6. Kenya Revenue Authority ITAX Pin Certificate.</li>
+
+                <li>&nbsp;</li>
+                <li><input type="checkbox" disabled id="administration" value="">7. Letters of Administration.</li>
+                <li>&nbsp;</li>
+                <li><input type="checkbox" disabled id="deathcertificate" value="">8. Death Certificate.</li>
+            {% else %}
+                <li>
+                    <input type="checkbox" disabled id="deedofassignment" value="">1. A Copy of Signed Deed of Assignment
+                </li>
+                <li>
+                    <input type="checkbox" disabled id="mechanicalrights" value="">2. A Copy of Signed Mechanical Rights Agreement
+                </li>
+                <li>
+                    <input type="checkbox" disabled id="passport" value="">3. A Coloured Passport Size photograph
+                </li>
+                <li>&nbsp;</li>
+                <li><input type="checkbox" disabled id="idcopy" value="">4. Frontside - Valid National Identity Card, Passport or Birth
+                    Certificate
+                </li>
+                 <li><input type="checkbox" disabled id="idbackcopy" value="">5. Backside - Valid National Identity Card, Passport or Birth
+                    Certificate
+                </li>
+                <li>&nbsp;</li>
+                <li><input type="checkbox" disabled id="kra" value="">6. Kenya Revenue Authority ITAX Pin Certificate.</li>
+                <li>&nbsp;</li>
+                <li><input type="checkbox" disabled id="nextofkin" value="">7. Valid National Identity Card, Passport or
+                    Birth Certificate of Next of Kin.
+                </li>
+                {% if profile.isGroup == "true" %}
+                    <li>
+                        <input type="checkbox" disabled id="agreements" value="">8. Copy of group agreement if there is joint copyright ownership</li>
+                    <li>&nbsp;</li>
+                {% endif %}
+            {% endif %}
+        </ul>
+    </ul>
+
+    {% if profile.profileDocuments | length > 0 %}
+        <p>You have already submitted the following documents</p>
+        <ol>
+            {% for profileDocument in profile.profileDocuments %}
+                {% if profileDocument.documentName == 'DEED-OF-ASSIGNMENT' %}
+                <script type="text/javascript">
+                    document.getElementById("deedofassignment").checked = true;
+                </script>
+                <li><b><i>Copy of Signed Deed of Assignment</i></b>&nbsp;<a style="color: red" href="{{ path('documents-delete',{'id': profileDocument.id }) }}">DELETE</a></li>
+                {% elseif profileDocument.documentName == 'MECHANICAL-RIGHTS-FORM' %}
+                <script type="text/javascript">
+                    document.getElementById("mechanicalrights").checked = true;
+                </script>
+                <li><b><i>Copy of Signed Mechanical Rights Agreement</i></b>&nbsp;<a style="color: red" href="{{ path('documents-delete',{'id': profileDocument.id }) }}">DELETE</a></li>
+                {% elseif profileDocument.documentName == 'PASSPORT-PHOTO' %}
+                <script type="text/javascript">
+                    document.getElementById("passport").checked = true;
+                </script>
+                <li><b><i>Coloured Passport Size photograph</i></b>&nbsp;<a style="color: red" href="{{ path('documents-delete',{'id': profileDocument.id }) }}">DELETE</a></li>
+                {% elseif profileDocument.documentName == 'NATIONAL-ID-COPY' %}
+                <script type="text/javascript">
+                    document.getElementById("idcopy").checked = true;
+                </script>
+                <li><b><i>Valid National Identity Card, Passport or Birth Certificate</i></b>&nbsp;<a style="color: red" href="{{ path('documents-delete',{'id': profileDocument.id }) }}">DELETE</a></li>
+                    {% elseif profileDocument.documentName == 'NATIONAL-ID-COPY-BACK' %}
+                <script type="text/javascript">
+                    document.getElementById("idbackcopy").checked = true;
+                </script>
+                <li><b><i>Valid National Identity Card, Passport or Birth Certificate</i></b>&nbsp;<a style="color: red" href="{{ path('documents-delete',{'id': profileDocument.id }) }}">DELETE</a></li>
+
+                {% elseif profileDocument.documentName == 'KRA-CERTIFICATE' %}
+                <script type="text/javascript">
+                    document.getElementById("kra").checked = true;
+                </script>
+                <li><b><i>Kenya Revenue Authority ITAX Pin Certificate</i></b>&nbsp;<a style="color: red" href="{{ path('documents-delete',{'id': profileDocument.id }) }}">DELETE</a></li>
+
+                {% elseif profileDocument.documentName == 'NEXT-OF-KIN-CERTIFICATE' %}
+                <script type="text/javascript">
+                    document.getElementById("nextofkin").checked = true;
+                </script>
+                <li><b><i>Valid National Identity Card, Passport or Birth Certificate of Next of Kin.</i></b>&nbsp;<a style="color: red" href="{{ path('documents-delete',{'id': profileDocument.id }) }}">DELETE</a></li>
+
+
+                {% endif %}
+
+                {% if profile.isGroup == "true" %}
+                {% if profileDocument.documentName == 'GROUP-AGREEMENT' %}
+                <script type="text/javascript">
+                    document.getElementById("agreements").checked = true;
+                </script>
+                <li><b><i>Copy of group agreement if there is joint copyright ownership.</i></b>&nbsp;<a style="color: red" href="{{ path('documents-delete',{'id': profileDocument.id }) }}">DELETE</a></li>
+                {% endif %}
+                {% endif %}
+
+                {% if app.user.userType=="Deceased Producer" %}
+                {% if profileDocument.documentName == 'ADMINISTRATION-LETTER' %}
+                <script type="text/javascript">
+                    document.getElementById("administration").checked = true;
+                </script>
+                <li><b><i>Letters of Administration.</i></b>&nbsp;<a style="color: red" href="{{ path('documents-delete',{'id': profileDocument.id }) }}">DELETE</a></li>
+                {% elseif profileDocument.documentName == 'DEATH-CERTIFICATE' %}
+                <script type="text/javascript">
+                    document.getElementById("deathcertificate").checked = true;
+                </script>
+                <li><b><i>Death Certificate.</i></b>&nbsp;<a style="color: red" href="{{ path('documents-delete',{'id': profileDocument.id }) }}">DELETE</a></li>
+                {% endif %}
+                {% endif %}
+
+            {% endfor %}
+        </ol>
+    {% else %}
+
+    {% endif %}
+    {% if profile.profileDocuments | length > 0 %}
+        {% if app.user.userType =="Deceased Producer" %}
+            {% if profile.profileDocuments | length < 6 %}
+                <fieldset>
+                    <legend>Section B: Document Upload</legend>
+                </fieldset>
+                <p>Use the form below to upload the remaining documents one at a time.</p>
+            {% endif %}
+        {% else %}
+            {% if profile.profileDocuments | length < 4 %}
+                <fieldset>
+                    <legend>Section B: Document Upload</legend>
+                </fieldset>
+                <p>Use the form below to upload the remaining documents one at a time.</p>
+            {% endif %}
+        {% endif %}
+    {% endif %}
+</div>

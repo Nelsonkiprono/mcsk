@@ -1,0 +1,204 @@
+{% extends 'adminBase.htm.twig' %}
+{% block title %}Corporate Profile {% endblock %}
+{% block javascripts %}
+    <script type="text/javascript">
+        jQuery(document).ready(function () {
+            $('.js-request-document').on('click', function (e) {
+                e.preventDefault();
+
+                $(this).find('.fa-file-pdf-o')
+                    .removeClass('fa-file-pdf-o')
+                    .addClass('fa-spinner')
+                    .addClass('fa-spin');
+                $.ajax({
+                    url: $(this).data('url'),
+                    method: 'GET'
+                }).done(function () {
+                    $(".messages").fadeIn("slow");
+
+                    $("#request-doc")
+                        .removeClass('fa-spinner')
+                        .removeClass('fa-spin')
+                        .addClass('fa-check');
+                }).fail(function () {
+                    $(".failure").fadeIn("slow");
+
+                    $("#request-doc")
+                        .removeClass('fa-spinner')
+                        .removeClass('fa-spin')
+                        .addClass('fa-times');
+                });
+            });
+        })
+    </script>
+{% endblock %}
+{% block body %}
+    <div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header" data-background-color="red">
+                    <h4 class="title" style="color: #fff;">Review Profile - <a href="#" onClick="window.print()">Print</a></h4>
+                    <p class="category">Publisher Profile</p>
+                </div>
+            </div>
+        </div>
+        <div id="content" class="app-content box-shadow-z0" role="main">
+
+            <div ui-view class="app-body" id="view">
+
+                <!-- ############ PAGE START-->
+
+
+                <div class="padding">
+                    <div class="panel panel-default">
+                        <div class="panel-heading"><strong>Company Information</strong></div>
+                        <div class="panel-body">
+                            <div class="row">
+
+                                <div class="col-md-6"><strong>Names:&nbsp;&nbsp; </strong>
+                                    {{ profile.companyName }}
+                                </div>
+
+                                <div class="col-md-6">
+                                    <strong>Company Type</strong>
+                                    {{ profile.companyType }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6"><strong>PIN Number:&nbsp;&nbsp; </strong>
+                                    {{ profile.itaxPin }}
+                                </div>
+                                <div class="col-md-6"><strong>Reg No:&nbsp;&nbsp; </strong>
+
+                                    {{ profile.regNumber }}
+
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6"><strong>Physical Address:&nbsp;&nbsp; </strong>
+                                    {{ profile.physicalAddress }}
+                                </div>
+                                <div class="col-md-6"><strong>City:&nbsp;&nbsp; </strong>
+
+                                    {{ profile.city }}
+
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6"><strong>Postal Address:&nbsp;&nbsp; </strong>
+                                    {{ profile.postalAddress }}
+                                </div>
+                                <div class="col-md-6"><strong>Postal Code:&nbsp;&nbsp; </strong>
+
+                                    {{ profile.postalCode }}
+
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12"><strong>Country:&nbsp;&nbsp; </strong>
+                                    {{ profile.county }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6"><strong>Mobile Number:&nbsp;&nbsp; </strong>
+                                    {{ profile.mobileNumber }}
+                                </div>
+                                <div class="col-md-6"><strong>Telephone:&nbsp;&nbsp; </strong>
+
+                                    {{ profile.telephone }}
+
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6"><strong>Email Address:&nbsp;&nbsp; </strong>
+                                    {{ profile.emailAddress }}
+                                </div>
+                                <div class="col-md-6"><strong>Email Address 1:&nbsp;&nbsp; </strong>
+
+                                    {{ profile.emailAddress2 }}
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12"><strong>Website:&nbsp;&nbsp; </strong>
+                                    {{ profile.website }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6"><strong>Are you a Member of other Collecting Societies?:&nbsp;&nbsp; </strong>
+
+                                    {% if profile.isCollectingSocietiesMember %}
+                                        Yes
+                                    {% else %}
+                                        No
+                                    {% endif %}
+
+                                </div>
+                                <div class="col-md-6"><strong>Collecting Societies:&nbsp;&nbsp; </strong>
+                                    {{ profile.collectingSocieties }}
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6"><strong>Member Number:&nbsp;&nbsp; </strong>
+                                    {% if profile.memberNumber %}
+                                        {{ profile.memberNumber }}
+                                    {% else %}
+                                        Member Number Pending
+                                    {% endif %}
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                  
+                    <!-- End Documents -->
+                    <!-- Recordings -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading"><strong>Recordings</strong></div>
+                        <div class="panel-body">
+
+                            <div class="row">
+                                <div class="col-md-6">
+
+                                    {% if profile.corporateMusicSamples | length > 0 %}
+                                        <p>This member has submitted the following recordings</p>
+                                        <table style="width:800px">
+                                            {% for profileSample in profile.corporateMusicSamples %}
+                                                <tr>
+                                                    <td width="400">
+                                                        <b><i>{{ profileSample.albumTitle }}</i></b><br/>
+                                                        
+
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                        </table>
+                                    {% else %}
+                                        <p>This member has not submitted any recordings</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="row">
+
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Recordings -->
+
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+{% endblock %}

@@ -1,0 +1,113 @@
+{% extends 'adminBase.htm.twig' %}
+{% block title %}Membership Approved{% endblock %}
+{% block approvedbymembership %} active {% endblock %}
+{% block body %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header" style="background-color: #2E276D">
+                        <h4 class="title" style="color: #fff;">Membership Approved Composer Profiles</h4>
+                    </div>
+                    <div class="card-content table-responsive">
+                                <table id="datatables" class="table table-striped table-no-bordered table-hover material-datatables" cellspacing="0" width="100%" style="width:100%">
+                                                <thead>
+                                                <tr>
+                                                    
+                                                    <th>Registered On</th>
+                                                    <th>Applicant Names</th>
+                                                    <th>Preferred Region</th>
+                                                    <th>Email</th>
+                                                    <th>Approved on</th>
+                                                    <th>Manage</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                {% for user in users %}
+                                                {% if is_granted('ROLE_COMMITTEE') %}
+                                                {% if user.prefferedRegion == app.user.region %} 
+                                                    <tr>
+                                                        
+                                                        <td>{{ user.createdAt | date("d-m-Y") }}</td>
+                                                    {% if is_granted('ROLE_MEMBERSHIP') %}
+                                                        <td><a style="color:#0cc2aa"
+                                                               href="{{ path('review-profile',{'id': user.id }) }}">{{ user.applicantName }}</a>
+                                                        </td>
+                                                    {% elseif is_granted('ROLE_BOARD')  %}
+                                                        <td><a style="color:#0cc2aa"
+                                                               href="{{ path('board-review-profile',{'id': user.id }) }}">{{ user.applicantName }}</a>
+                                                        </td>
+                                                    {% endif %}
+                                                        <td>{{ user.prefferedRegion }}</td>
+                                                        <td>{{ user.emailAddress }}</td>
+                                                        <td>{{ user.membershipApprovedAt | date("F jS \\a\\t g:ia") }}</td>
+                                                        {% if is_granted('ROLE_MEMBERSHIP') %}
+                                                        <td><a href="{{ path('review-profile',{'id': user.id }) }}"
+                                                                    class="btn btn-xs white"><i title="Manage"
+                                                                                                class="fa fa-pencil"></i>
+                                                            </a><!--
+                                                            <a href="{{ path('pdf-profile',{'id': user.id }) }}"
+                                                               class="btn btn-xs white btn-icon"><i title="Export"
+                                                                                                    class="fa fa-file-pdf-o"></i></a> -->
+                                                        </td>
+                                                            {% elseif is_granted('ROLE_BOARD') %}
+                                                                <td><a href="{{ path('board-review-profile',{'id': user.id }) }}"
+                                                                       class="btn btn-xs white"><i title="Manage"
+                                                                                                   class="fa fa-pencil"></i>
+                                                                    </a><!--
+                                                            <a href="{{ path('pdf-profile',{'id': user.id }) }}"
+                                                               class="btn btn-xs white btn-icon"><i title="Export"
+                                                                                                    class="fa fa-file-pdf-o"></i></a> -->
+                                                                </td>
+                                                            {% endif %}
+                                                    </tr>
+                                                {% endif %}
+                                                {% else %}
+                                                <tr>
+                                                        
+                                                        <td>{{ user.createdAt | date("d-m-Y") }}</td>
+                                                    {% if is_granted('ROLE_MEMBERSHIP') %}
+                                                        <td><a style="color:#0cc2aa"
+                                                               href="{{ path('review-profile',{'id': user.id }) }}">{{ user.applicantName }}</a>
+                                                        </td>
+                                                    {% elseif is_granted('ROLE_BOARD')  %}
+                                                        <td><a style="color:#0cc2aa"
+                                                               href="{{ path('board-review-profile',{'id': user.id }) }}">{{ user.applicantName }}</a>
+                                                        </td>
+                                                    {% endif %}
+                                                        <td>{{ user.prefferedRegion }}</td>
+                                                        <td>{{ user.emailAddress }}</td>
+                                                        <td>{{ user.membershipApprovedAt | date("F jS \\a\\t g:ia") }}</td>
+                                                        {% if is_granted('ROLE_MEMBERSHIP') %}
+                                                        <td><a href="{{ path('review-profile',{'id': user.id }) }}"
+                                                                    class="btn btn-xs white"><i title="Manage"
+                                                                                                class="fa fa-pencil"></i>
+                                                            </a><!--
+                                                            <a href="{{ path('pdf-profile',{'id': user.id }) }}"
+                                                               class="btn btn-xs white btn-icon"><i title="Export"
+                                                                                                    class="fa fa-file-pdf-o"></i></a> -->
+                                                        </td>
+                                                            {% elseif is_granted('ROLE_BOARD') %}
+                                                                <td><a href="{{ path('board-review-profile',{'id': user.id }) }}"
+                                                                       class="btn btn-xs white"><i title="Manage"
+                                                                                                   class="fa fa-pencil"></i>
+                                                                    </a><!--
+                                                            <a href="{{ path('pdf-profile',{'id': user.id }) }}"
+                                                               class="btn btn-xs white btn-icon"><i title="Export"
+                                                                                                    class="fa fa-file-pdf-o"></i></a> -->
+                                                                </td>
+                                                            {% endif %}
+                                                    </tr>
+
+                                       {% endif %}
+                                                {% endfor %}
+                                                </tbody>
+                                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

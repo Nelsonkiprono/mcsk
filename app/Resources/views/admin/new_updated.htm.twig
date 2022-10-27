@@ -1,0 +1,117 @@
+{% extends 'adminBase.htm.twig' %}
+{% block title %}New Administrator{% endblock %}
+{% block body %}
+<!-- ############ LAYOUT START-->
+
+    <div class="container-fluid">
+    <div class="row">
+    <div class="col-md-12">
+    <div class="card">
+    <div class="card-header" style="background-color: #2E276D">
+        <h4 class="title" style="color: white">Update Administrator</h4>
+    </div>
+    <div class="card-content">
+
+        <div class="page messages" style="display: none">
+            <div class="messages" style="">
+                <div class="alert alert-success">
+                    <div>
+                        Request successful.
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="page errors" style="display: none">
+            <div class="errors" style="">
+                <div class="alert alert-danger">
+                    <div>
+                        :-( Something went wrong. This request was not completed.
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        {{ form_start(adminForm) }}
+            <div class="md-form-group float-label" style="font-weight: bold">
+                {{ form_row(adminForm.firstName, { 'attr': {'class': 'form-control'} }) }}
+
+            </div>
+            <div class="md-form-group float-label" style="font-weight: bold">
+                {{ form_row(adminForm.lastName, { 'attr': {'class': 'form-control'} }) }}
+
+            </div>
+            <div class="md-form-group float-label" style="font-weight: bold">
+                {{ form_row(adminForm.email, { 'attr': {'class': 'form-control'} }) }}
+
+            </div>
+            <div class="md-form-group float-label" style="font-weight: bold">
+    
+                <label for="role" class="required">Role</label>
+                {% for role in user.roles %}
+                    {% if role == "ROLE_MEMBERSHIP" %}
+                        <select id="role" name="role" required="required" class="form-control select2">
+                            <option value="Administrator">Administrator</option>
+                            <option value="Board">Board</option>
+                            <option value="Committee Chair">Regional Committee Chair</option>
+                            <option value="Committee">Regional Committee</option>
+                            <option value="Membership" selected>Membership</option>
+                        </select>
+                    {% elseif role == "ROLE_BOARD" %}
+                        <select id="role" name="role" required="required" class="form-control select2">
+                            <option value="Administrator">Administrator</option>
+                            <option value="Board" selected>Board</option>
+                            <option value="Committee Chair">Regional Committee Chair</option>
+                            <option value="Committee">Regional Committee</option>
+                            <option value="Membership">Membership</option>
+                        </select>
+                    {% elseif role == "ROLE_ADMINISTRATOR" %}
+                        <select id="role" name="role" required="required" class="form-control select2">
+                            <option value="Administrator" selected>Administrator</option>
+                            <option value="Board">Board</option>
+                            <option value="Committee Chair">Regional Committee Chair</option>
+                            <option value="Committee">Regional Committee</option>
+                            <option value="Membership">Membership</option>
+                        </select>
+                    {% elseif role == "ROLE_COMMITTEE" and user.isCommitteeMember == "true" and user.isCommitteeChairMember == "false" %}
+                        <select id="role" name="role" required="required" class="form-control select2">
+                            <option value="Administrator">Administrator</option>
+                            <option value="Board">Board</option>
+                            <option value="Committee Chair">Regional Committee Chair</option>
+                            <option value="Committee" selected>Regional Committee</option>
+                            <option value="Membership">Membership</option>
+                        </select>
+                    {% elseif role == "ROLE_COMMITTEE" and user.isCommitteeMember == "true" and user.isCommitteeChairMember == "true" %}
+                        <select id="role" name="role" required="required" class="form-control select2">
+                            <option value="Administrator">Administrator</option>
+                            <option value="Board">Board</option>
+                            <option value="Committee Chair" selected>Regional Committee Chair</option>
+                            <option value="Committee">Regional Committee</option>
+                            <option value="Membership">Membership</option>
+                        </select>
+                    {% else %}
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <div class="md-form-group float-label" style="font-weight: bold">
+                {{ form_row(adminForm.region,{
+                    'attr': {'class': 'select'}}) }}
+    
+            </div>
+            <div id="expiry_date" class="md-form-group float-label" style="font-weight: bold">
+                {{ form_row(adminForm.accountExpiresAt) }}
+    
+            </div>
+            <div id="signature" class="md-form-group float-label" style="font-weight: bold; margin-top: 10px">
+                {{ form_label(adminForm.imageFile, 'Upload image of board member signature') }}<br>
+                {{ form_widget(adminForm.imageFile) }}
+    
+            </div>
+            <button type="submit" class="btn primary btn-block p-x-md">Update</button>
+        {{ form_end(adminForm) }}
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+  {% endblock %}

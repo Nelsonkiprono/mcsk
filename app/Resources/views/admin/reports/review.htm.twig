@@ -1,0 +1,197 @@
+{% extends 'adminBase.htm.twig' %}
+{% block title %}User Profile {% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header" data-background-color="red">
+                    <h4 class="title" style="color: #fff;">Review Profile</h4>
+                    <p class="category">Composer Profile - <a href="#" onClick="window.print()">Print</a></p>
+                </div>
+            </div>
+        </div>
+        <div id="content" class="app-content box-shadow-z0" role="main">
+
+            <div ui-view class="app-body" id="view">
+
+                <!-- ############ PAGE START-->
+
+
+                <div class="padding">
+                    {% if profile.user.userType is defined and profile.user.userType =="Deceased Producer" %}
+                        <div class="panel panel-default">
+                            <div class="panel-heading"><strong>Composer/Arranger/Author's Information</strong></div>
+                            <div class="panel-body">
+                                <div class="row">
+
+                                    <div class="col-md-6"><strong>Names:&nbsp;&nbsp; </strong>
+                                        {{ profile.producerName }}
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <strong>Status</strong>
+                                        Deceased
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6"><strong>Member Number:&nbsp;&nbsp; </strong>
+                                        {% if profile.memberNumber %}
+                                            {{ profile.memberNumber }}
+                                        {% else %}
+                                            Member Number Pending
+                                        {% endif %}
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading"><strong>Next of Kin Information</strong></div>
+                            <div class="panel-body">
+                                <div class="row">
+
+                                    <div class="col-md-6"><strong>Names:&nbsp;&nbsp; </strong>
+                                        {{ profile.applicantName }}
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <strong>Date Of Birth</strong>
+                                        {% if profile.dateOfBirth %}
+                                            {{ profile.dateOfBirth | date('d/m/Y') }}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6"><strong>ID Number:&nbsp;&nbsp; </strong>
+                                        {{ profile.idNumber }}
+                                    </div>
+                                    <div class="col-md-6"><strong>Gender:&nbsp;&nbsp; </strong>
+
+                                        {{ profile.gender }}
+
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6"><strong>Registration Date:&nbsp;&nbsp; </strong>
+
+                                        {{ profile.createdAt | date('d/m/Y') }}
+
+                                    </div>
+                                    <div class="col-md-6"><strong>Status:&nbsp;&nbsp; </strong>
+                                        {% if profile.isPaid %}
+                                            Paid Membership
+                                        {% else %}
+                                            Payment Pending
+                                        {% endif %}
+
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    {% else %}
+                    <div class="panel panel-default">
+                        <div class="panel-heading"><strong>Personal Information</strong></div>
+                        <div class="panel-body">
+                            <div class="row">
+
+                                <div class="col-md-6"><strong>Names:&nbsp;&nbsp; </strong>
+                                    {{ profile.applicantName }}
+                                </div>
+
+                                <div class="col-md-6">
+                                    <strong>Date Of Birth</strong>
+                                    {% if profile.dateOfBirth %}
+                                        {{ profile.dateOfBirth | date('d/m/Y') }}
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6"><strong>ID Number:&nbsp;&nbsp; </strong>
+                                    {{ profile.idNumber }}
+                                </div>
+                                <div class="col-md-6"><strong>Gender:&nbsp;&nbsp; </strong>
+
+                                    {{ profile.gender }}
+
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6"><strong>Registration Date:&nbsp;&nbsp; </strong>
+
+                                    {{ profile.createdAt | date('d/m/Y') }}
+
+                                </div>
+                                <div class="col-md-6"><strong>Status:&nbsp;&nbsp; </strong>
+                                    {% if profile.isPaid %}
+                                        Paid Membership
+                                    {% else %}
+                                        Payment Pending
+                                    {% endif %}
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6"><strong>Member Number:&nbsp;&nbsp; </strong>
+                                    {% if profile.memberNumber %}
+                                        {{ profile.memberNumber }}
+                                    {% else %}
+                                        Member Number Pending
+                                    {% endif %}
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                    {% endif %}
+                   
+                    <!-- Recordings -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading"><strong>Recordings</strong></div>
+                        <div class="panel-body">
+
+                            <div class="row">
+                                <div class="col-md-6">
+
+                                    {% if profile.profileSamples | length > 0 %}
+                                        <p>This member has submitted the following recordings</p>
+                                        <table style="width:800px">
+                                            {% for profileSample in profile.profileSamples %}
+                                                <tr>
+                                                    <td width="800">
+                                                        <b><i>{{ profileSample.albumTitle }}</i></b><br/>
+
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                        </table>
+                                    {% else %}
+                                        <p>This member has not submitted any recordings</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="row">
+
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Recordings -->
+
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+{% endblock %}

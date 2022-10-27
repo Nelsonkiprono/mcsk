@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MCSK</title>
+    <!-- Bootstrap CSS -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+    <div class="d-flex justify-content-center align-items-center" style="margin-top: 30px">
+        {{ form_start(loginForm) }}
+
+            <div class="form-group">
+            <img src="{{ asset('./images/mcsk.jpg') }}" alt=""/>
+            </div>
+            <div class="form-group col-md-6">
+                {{ form_label(loginForm._username) }}
+                {{ form_widget(loginForm._username,{'attr':{'class':'form_control is-invalid'}}) }}
+                <div class="invalid-feedback">
+                    {{ form_errors(loginForm._username) }}
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                {{ form_label(loginForm._password) }}
+                {{ form_widget(loginForm._password,{'attr':{'class':'form_control is-invalid'}}) }}
+                <div class="invalid-feedback">
+                    {{ form_errors(loginForm._password) }}
+                </div>
+            </div>
+            <input type="hidden" name="_target_path" value="account_registration"/>
+            <input type="hidden" name="_failure_path" value="prof_login"/>
+            <button type="submit" class="btn btn-primary">Sign In</button>
+
+
+            <p>Not a member?
+                <a href="{{ path('reg') }}">Register</a>
+            </p>
+
+        {{ form_end(loginForm) }}
+    </div>
+</div>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+</body>
+</html>

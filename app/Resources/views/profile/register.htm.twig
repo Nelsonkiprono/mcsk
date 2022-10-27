@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MCSK</title>
+    <!-- Bootstrap CSS -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+    <div class="d-flex justify-content-center align-items-center" >
+        <form method="post" action="{{ path('first_reg_submit') }}">
+            <div class="form-group d-flex justify-content-center">
+                <img width="100" src="{{ asset('./images/mcsk.jpg') }}" alt=""/>
+            </div>
+
+            <div class="form-group col-md-12">
+                <b><label for="acc_type">Membership Type<span style="color: red;"><b>*</b></span></label></b>
+                <select class="custom-select" name="acc_type" id="acc_type">
+                    <option value="Composer" selected>Composer</option>
+                    <option value="Author">Author</option>
+                    <option value="Arranger">Arranger</option>
+                    <option value="Publisher">Publisher</option>
+                </select>
+            </div>
+
+            <div class="form-group col-md-12" id="company">
+                <b><label for="company_name">Company Name<span style="color: red;"><b>*</b></span></label></b>
+                <input type="text" class="form-control" name="company_name" id="company_name">
+            </div>
+
+            <div class="row col-md-12">
+                <div class="form-group col-md-4">
+                    <b><label for="fname">First Name<span style="color: red;"><b>*</b></span></label></b>
+                    <input type="text" class="form-control" name="fname" id="fname">
+                </div>
+
+                <div class="form-group col-md-4">
+                    <b><label for="sname">Second Name<span style="color: red;"><b>*</b></span></label></b>
+                    <input type="text" class="form-control" name="sname" id="sname">
+                </div>
+
+                <div class="form-group col-md-4">
+                    <b><label for="lname">Surname/Name of group<span style="color: red;"><b>*</b></span></label></b>
+                    <input type="text" class="form-control" name="lname" id="lname">
+                </div>
+            </div>
+
+            <div class="row col-md-12">
+                <div class="form-group col-md-6">
+                    <b><label for="phone">Phone<span style="color: red;"><b>*</b></span></label></b>
+                    <input type="tel" class="form-control" name="phone" id="phone" aria-describedby="phoneHelp" placeholder="254700776144">
+                    <small id="phoneHelp" class="form-text text-muted">Start your phone number with 254 instead of 0.</small>
+                </div>
+
+                <div class="form-group col-md-6">
+                    <b><label for="email">Email address<span style="color: red;"><b>*</b></span></label></b>
+                    <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp" placeholder="leviskimathi@gmail.com">
+                    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                </div>
+            </div>
+
+            <div class="row col-md-12">
+            <div class="form-group col-md-6">
+                <b><label for="password">Password<span style="color: red;"><b>*</b></span></label></b>
+                <input type="password" class="form-control" name="password" id="password" placeholder="password">
+            </div>
+            <div class="form-group col-md-6">
+                <b><label for="cpassword">Confirm Password<span style="color: red;"><b>*</b></span></label></b>
+                <input type="password" class="form-control" name="cpassword" id="cpassword" placeholder="confirm password">
+            </div>
+            </div>
+
+            <div class="row col-md-12">
+            <b><label>Terms and Conditions<span style="color: red;"><b>*</b></span></label></b>
+            <div style=" height:150px; overflow-y: scroll;">
+                By clicking Agree, You agree to the following.
+                Hereinafter referred to as "the Assignor" pursuant to his/her membership of the Music Copyright Society of Kenya Limited hereinafter referred to as "the Society" and the SOCIETY, whose registered office is at Nairobi, Kenya.
+
+                WITNESS as follows: -
+
+                1.	In this deed: -
+                (a)	the expression "musical works" shall mean any musical work whether now existing of hereafter composed  and such words (if any) as are associated with any musical work and shall include (without prejudice to the generality of the expression "musical work")  the vocal and instrumental music in any cinematography films, the words and/or music of any monologue having a musical introduction and/or accompaniment, the musical accompaniment of any non-musical play and any par of any such work, words, music or accompaniment as  aforesaid;
+                (b)	the expressions "performing right", "film synchronization right", "performance" and "perform" shall have the meanings respectively given to them in the Society's Articles of Association.
+
+                2.	The Assignor hereby assigns to the Society ALL the under-mentioned rights in musical works which now belong to or shall hereafter be acquired by or be or become vested I the Assignor during the continuance of the Assignor's membership of the Society, and all such parts of shares (whether limited as to time, place, mode of enjoyment or otherwise) of, and all such interests in, any such rights as so belong to or shall so be acquired by or be or become vested in the Assignor (all which rights hereby assigned or expressed or intended to be assigned are hereinafter collectively referred to as "the rights assigned"), TO HOLD the same unto the Society for its exclusive benefit during such time as the rights assigned continue to subsist and (in accordance with the provisions of the Articles of Association of the Society for the time being in force) remain vested in or controlled by the Society.
+
+                The rights assigned to the Society by this deed are: -
+
+                (i)	all performing rights / communication to the public
+                (ii)	all broadcasting rights
+
+                for all parts of the world
+
+                3.	The Society hereby covenants with the Assignor that the Society shall from time to time pay to the Assignor such sums of money out of the monies collected by the Society in respect to the exercise of the rights assigned to the Society in the works of its members as the Assignor shall be entitled to receive in accordance with the rules of the society for the time being in force.
+
+                4.	The Assignor do hereby covenants with the Society that the Assignor has good right and full power to assign the rights assigned in manner aforesaid to the Society, and hereby warrants that the musical works in respect of which the rights assigned are hereby assigned or purported to be assigned do not or will not as the case may infringe the copyright in any other work, and that the Assignor will at all times hereafter keep the Society harmless and indemnified against all loss, damage, costs, charges, and expenses which the Society may suffer or incur in respect of or as a result of any exercise by the Society of any  of the rights which are hereby assigned or purported to be assigned, and that the Assignor shall and will so long as the Assignor shall continue to be a member of the Society do, execute, and make all such as, deeds, powers of the Attorney, assigned or any part thereof as the Society may from time to time reasonably require.
+
+                Hereinafter referred to as “the Assignor” and the said MUSIC COPYRIGHT SOCIETY OF KENYA LIMITED (Limited by Guarantee) with its registered office at Maua Close, Off Parklands Road, Westlands (hereinafter referred to as “the Society”) the parties agree as follows:-
+
+                1.	In this Deed:-
+
+                (a)	the expression “musical work” shall mean any musical work whether now existing or hereafter composed and any adaptation thereof and such words (if any) as are associated therewith, and shall include (without prejudice to the generality of the expression “musical work”) any song, choral work, the vocal and instrumental music in any cinematograph film, the words and/or music of any monologue having a musical introduction and/or accompaniment, the musical accompaniment of any non-musical play, and any part of any such work, words, music or accompaniment as aforesaid.
+                (b)	the expression “mechanical right” shall mean in respect of any musical work the right to make or cause to be made in any part of the world, a record or records embodying that work, including the making of records (resulting from reproduction by any means) for purposes of: letting, or offering or exposing the musical works for hire by way of trade, directly or indirectly;  broadcasting the musical works;  transmitting the musical works in a diffusion service;  communicating the musical works to the public;  using the musical works by means of the Internet and in electronic multimedia products and in any new media applications;  using the musical works in telecommunication services, including use as ringtones; any performance of the works; as well as the right of authorising the said acts.
+                (c)	the expression “record” shall mean any disc, tape, perforated roll or other carrier or medium or device on or in which musical works or sounds including musical works are embodied, fixed or stored so as to be capable of being automatically reproduced therefrom with or without the aid of some other instrument, equipment or device;  and references to a record of a work or other subject-matter shall be construed as references to a record as herein defined by means of which the musical work or sounds can be performed.  References to “recording” shall be construed accordingly.
+                (d)	unless expressly stated otherwise, the expression “performance” shall include any mode of visual and/or acoustic presentation of a work, including any such presentation by the operation of radio apparatus or the exhibition of a cinematograph film or by the use of a record or by any other means.  References to “perform” shall be construed accordingly.
+
+                2.	Subject to the provisions of clause (b) hereof,  the Assignor hereby assigns to the Society all mechanical rights in all musical works which now belong to or shall hereafter be acquired or created by or be or become vested in the Assignor during the continuance of the Assignor’s membership of the Society and all such parts or shares (whether 	limited as to time, place, mode of enjoyment or otherwise) of, and all such interests in, any mechanical rights as so belong to or shall so be acquired or created by or be or become vested in the Assignor (all of which rights hereby assigned or expressed or intended to be assigned are hereinafter collectively referred to as “the rights assigned”).
+
+
+                3.	The Society shall, upon the signing hereof or at a reasonable time thereafter, commence administering the mechanical rights acquired in terms of this agreement and the Assignor accepts all decisions, acts, deeds or other arrangements at any time made, concluded or executed by the Society in order to enable the Society to better, further or more satisfactorily exploit and enforce the rights assigned in terms of this agreement or any part thereof.  The Assignor accepts that it may be necessary for the Society to enter into agreements with similar or other societies, persons or entities in order to ensure the effective and efficient administration of the assigned rights. The Assignor also acknowledges that the Society administration of mechanical rights may in future cover exploitation by means of usages and media that were not envisaged at the time of the signing of this agreement and has no objection to this.
+
+                4.	In consideration for the assignment, the Society will from	time to time pay to the Assignor such sums of money out of the monies collected by the Society in respect of the recording of the works of its members as the Assignor shall be entitled to receive in accordance with the Rules of the Society for the time being in force.
+
+                5.	If applicable, the Assignor shall disclose to the Society  each agreement (“disclosed agreement(s)”) for the exploitation of mechanical rights that the Assignor has already concluded with one or more other licensing organisations or any other parties, details of which disclosed agreement(s) shall be set out in Schedule “A” accompanying this agreement.  Except for any disclosed agreement(s) set out in Schedule “A”, the Assignor warrants that the Assignor has not concluded any such agreements for the exploitation of mechanical rights with any other licensing organisation or other party. The Assignor further undertakes not to enter into any further agreements relating to the exploitation of mechanical rights without the prior, written consent of the Society.
+
+                6.	Bearing in mind the provisions of clause 5 above, the executive management of the Society may from time to time, on a case by case basis and taking into cognisance the special circumstances of the Assignor, including the disclosed agreement(s):
+                6.1	opt out of or, where so desired, make provision for the Assignor to opt out of exploitation of certain categories of usages of the assigned rights through the Society. Such opting out shall be valid for a limited period to be advised by the Society, provided that such period may be renewable, where applicable; or
+                6.2	licence back to the Assignor the non-exclusive right to grant a licence in a specific situation in respect of certain categories of usages of the assigned rights, to enable the Assignor to meet the Assignor’s obligations in terms of any disclosed agreement(s), or
+                6.3	take whatever steps are appropriate to assume the rights of the Assignor in respect of certain categories of usages of the assigned rights, or
+                6.4	otherwise ratify any of the disclosed agreement(s) entered into between the Assignor and other parties prior to the signing hereof in relation to certain categories of usages of the assigned rights, subject to such conditions as the executive management may deem appropriate.
+
+                7.	The provisions of clause 6 above shall not extend to any use covered by a blanket licence granted by the Society. It is recorded that the use of the assigned rights for broadcast purposes shall be licensed through a blanket licence, provided that this shall not preclude the Society in future from licensing such broadcast usage in any other possible manner.
+
+                8.	Subject to clause 5, the Assignor warrants that the Assignor has good right and full power to assign the rights assigned in the manner aforesaid to the Society and that the Assignor will at all times hereafter keep the Society harmless and indemnified against all loss, damage, costs, charges and expenses which the Society may suffer or incur in respect of any claims which may be made upon or against the Society in respect of the exercise by the Society of any of the rights that are assigned or purported to be assigned by this agreement.  The Assignor shall and will so long as the Assignor shall continue to be a member of the Society do, execute and make all such acts, deeds, powers of attorney, assignments and assurances for recording, registering or confirming the assignment to and the vesting in the Society of the mechanical rights and for enabling the Society to enforce the rights assigned or any part thereof, as the Society may from time to time reasonably require.
+
+                9.	This agreement and the Society’s rights arising from it shall extend to:
+
+                9.1	Kenya, and
+
+                9.2	each other country of the World
+
+                I/we understand if admitted, my/our membership will be subject to the Memorandum and Articles of Association of the Society and that my/our rights, obligations and liabilities as a member(s) will be governed by the Memorandum and Articles of Association and all rules and regulations.
+
+            </div>
+
+            <div class="form-group col-md-6" style="margin-top: 10px">
+                <input required type="checkbox" name="agree"> Agree
+            </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Sign Up</button>
+
+            <p style="margin-top: 10px">Already a member?
+                <a href="{{ path('prof_login') }}">Login</a>
+            </p>
+        </form>
+    </div>
+</div>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script>
+    $('document').ready(function () {
+        $('#company').hide();
+
+        $('#acc_type').change(function () {
+            if ($(this).val().match('Publisher')) {
+                $('#company').show();
+            } else {
+                $('#company').hide();
+            }
+        });
+    });
+</script>
+</body>
+</html>

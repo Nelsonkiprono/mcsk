@@ -1,0 +1,165 @@
+<div class="uploaded">
+<ul>
+    <ul style="list-style: none">
+        {% if profile.companyType =="Sole Proprietorship" %}
+
+            <li><input type="checkbox" disabled id="deedofassignment" value="">1. A Copy of Signed Deed of Assignment</li>
+            <li></li>
+            <li><input type="checkbox" disabled id="mechanicalrights" value="">2. A Copy of Signed Mechanical Rights Agreement</li>
+            <li></li>
+            <li><input type="checkbox" disabled id="kra" value="">3. A copy of your Kenya Revenue Authority ITAX Updated Pin Certificate.</li>
+            <li>&nbsp;</li>
+            <li><input type="checkbox" disabled id="regcert" value="">4. A Copy of Certificate of Business Name Registration </li>
+            <li>&nbsp;</li>
+             <li><input type="checkbox" disabled id="cr12" value="">5. CR12.</li>
+                <li>&nbsp;</li>
+                <li><input type="checkbox" disabled id="cletter" value="">6. Cover Letter on the Company’s Letter Head.</li>
+                <li>&nbsp;</li>
+                <li><input type="checkbox" disabled id="contracts" value="">7. Certified Copy(s) of Contracts or Agreements Between The Publisher and The Authors/Composers.
+               </li>
+            <li>&nbsp;</li>
+            <li><input type="checkbox" disabled id="passport1" value="">8.A Clear Passport-Size Photo </li>
+            <li>&nbsp;</li>
+            <li><input type="checkbox" disabled id="idcopy1" value="">9. A copy of frontside of your Valid National Identity Card or Passport.</li>
+            <li>&nbsp;</li>
+            <li><input type="checkbox" disabled id="idcopyback1" value="">10. A copy of backside of your Valid National Identity Card or Passport.</li>
+            <li>&nbsp;</li>
+            <li><input type="checkbox" disabled id="kinidcopy" value="">11. Valid Next of Kin/Beneficiary National Identity Card or Passport or Birth Certificate.</li>
+            <li>&nbsp;</li>
+        {% else %}
+            <li><input type="checkbox" disabled id="deedofassignment" value="">1. A Copy of Signed Deed of Assignment</li>
+            <li></li>
+            <li><input type="checkbox" disabled id="mechanicalrights" value="">2. A Copy of Signed Mechanical Rights Agreement</li>
+            <li></li>
+            <li><input type="checkbox" disabled id="kra" value="">3. Kenya Revenue Authority ITAX Updated Pin Certificate.</li>
+            <li>&nbsp;</li>
+            <li>
+                <input type="checkbox" disabled id="regcert" value="">4. Certificate of Registration or Incorporation </li>
+            <li>&nbsp;</li>
+             <li><input type="checkbox" disabled id="cr12" value="">5. CR12.</li>
+                <li>&nbsp;</li>
+                <li><input type="checkbox" disabled id="cletter" value="">6. Cover Letter on the Company’s Letter Head.</li>
+                <li>&nbsp;</li>
+                <li><input type="checkbox" disabled id="contracts" value="">7. Certified Copy(s) of Contracts or Agreements Between The Publisher and The Authors/Composers.
+                </li>
+            <li>&nbsp;</li>
+            <li><input type="checkbox" disabled id="passport1" value="">8. Passport-Size Photo Of Director 1 </li>
+            <li>&nbsp;</li>
+            <li><input type="checkbox" disabled id="idcopy1" value="">9. frontside - Valid National Identity Card or Passport of Director 1.</li>
+            <li>&nbsp;</li>
+               <li><input type="checkbox" disabled id="idcopyback1" value="">10. Backside - Valid National Identity Card or Passport of Director 1.</li>
+            <li>&nbsp;</li>
+             {% if profile.numberOfDirectors ==2 %}
+            <li><input type="checkbox" disabled id="passport2" value="">11. Passport-Size Photo Of Director 2 </li>
+            <li>&nbsp;</li>
+            <li><input type="checkbox" disabled id="idcopy2" value="">12. Frontside - Valid National Identity Card or Passport of Director 2.</li>
+            <li>&nbsp;</li>
+            <li><input type="checkbox" disabled id="idcopyback2" value="">13. Backside -Valid National Identity Card or Passport of Director 2.</li>
+
+            {% else %}
+                    <li><input type="checkbox" disabled id="kinidcopy" value="">14. Valid Next of Kin/Beneficiary National Identity Card or Passport or Birth Certificate.</li>
+                    <li>&nbsp;</li>
+             {% endif %}
+        {% endif %}
+    </ul>
+
+</ul>
+    {% if profile.corporateProfileDocuments | length > 0 %}
+        <p>You have already submitted the following documents</p>
+        <ol>
+            {% for profileDocument in profile.corporateProfileDocuments %}
+                {% if profileDocument.documentName == 'DEED-OF-ASSIGNMENT' %}
+                <script type="text/javascript">
+                        document.getElementById("deedofassignment").checked = true;
+                </script>
+                <li><b><i>Copy of Signed Deed of Assignment</i></b>&nbsp;<a style="color: red" href="{{ path('documents-delete-corporate',{'id': profileDocument.id }) }}">DELETE</a></li>
+                {% elseif profileDocument.documentName == 'MECHANICAL-RIGHTS-FORM' %}
+                <script type="text/javascript">
+                        document.getElementById("mechanicalrights").checked = true;
+                </script>
+                <li><b><i>Copy of Signed Mechanical Rights Agreement</i></b>&nbsp;<a style="color: red" href="{{ path('documents-delete-corporate',{'id': profileDocument.id }) }}">DELETE</a></li>
+                {% elseif profileDocument.documentName == 'KRA-PIN' %}
+                <script type="text/javascript">
+                    document.getElementById("kra").checked = true;
+                </script>
+                <li><b><i>Copy of Kenya Revenue Authority ITAX Updated Pin Certificate</i></b>&nbsp;<a style="color: red" href="{{ path('documents-delete-corporate',{'id': profileDocument.id }) }}">DELETE</a></li>
+                {% elseif profileDocument.documentName == 'REG-CERT' %}
+                <script type="text/javascript">
+                    document.getElementById("regcert").checked = true;
+                </script>
+                        <li><b><i>Registration Certificate</i></b>&nbsp;<a style="color: red" href="{{ path('documents-delete-corporate',{'id': profileDocument.id }) }}">DELETE</a></li>
+
+                    {% elseif profileDocument.documentName == 'DIR1-PASSPORT-PHOTO' %}
+                <script type="text/javascript">
+                    document.getElementById("passport1").checked = true;
+                </script>
+                        <li><b><i>Color Passport of Director 1</i></b>&nbsp;<a style="color: red" href="{{ path('documents-delete-corporate',{'id': profileDocument.id }) }}">DELETE</a></li>
+
+                    {% elseif profileDocument.documentName == 'DIR1-ID-COPY' %}
+                <script type="text/javascript">
+                    document.getElementById("idcopy1").checked = true;
+                </script>
+                        <li><b><i>Copy of ID of Director 1</i></b>&nbsp;<a style="color: red" href="{{ path('documents-delete-corporate',{'id': profileDocument.id }) }}">DELETE</a></li>
+
+                    {% elseif profileDocument.documentName == 'DIR1-ID-COPY-BACK' %}
+                <script type="text/javascript">
+                    document.getElementById("idcopyback1").checked = true;
+                </script>
+                        <li><b><i>Frontside Copy of ID of Director 1</i></b>&nbsp;<a style="color: red" href="{{ path('documents-delete-corporate',{'id': profileDocument.id }) }}">DELETE</a></li>
+
+                    {% elseif profileDocument.documentName == 'DIR2-PASSPORT-PHOTO' %}
+                <script type="text/javascript">
+                    document.getElementById("passport2").checked = true;
+                </script>
+                        <li><b><i>Color Passport of Director 2</i></b>&nbsp;<a style="color: red" href="{{ path('documents-delete-corporate',{'id': profileDocument.id }) }}">DELETE</a></li>
+                  {% elseif profileDocument.documentName == 'CR12' %}
+                <script type="text/javascript">
+                    document.getElementById("cr12").checked = true;
+                </script>
+                <li><b><i>CR12.</i></b>&nbsp;<a style="color: red" href="{{ path('documents-delete',{'id': profileDocument.id }) }}">DELETE</a></li>
+                {% elseif profileDocument.documentName == 'COVER-LETTER' %}
+                <script type="text/javascript">
+                    document.getElementById("cletter").checked = true;
+                </script>
+                <li><b><i>Cover Letter on the Company’s Letter Head.</i></b>&nbsp;<a style="color: red" href="{{ path('documents-delete',{'id': profileDocument.id }) }}">DELETE</a></li>
+                {% elseif profileDocument.documentName == 'CONTRACTS-COPY' %}
+                <script type="text/javascript">
+                    document.getElementById("contracts").checked = true;
+                </script>
+                <li><b><i>Certified Copy(s) of Contracts or Agreements Between The Publisher and The Authors/Composers.</i></b>&nbsp;<a style="color: red" href="{{ path('documents-delete',{'id': profileDocument.id }) }}">DELETE</a></li>           
+               
+                    {% elseif profileDocument.documentName == 'DIR2-ID-COPY' %}
+                <script type="text/javascript">
+                    document.getElementById("idcopy2").checked = true;
+                </script>
+                        <li><b><i>Frontside Copy of ID of Director 2</i></b>&nbsp;<a style="color: red" href="{{ path('documents-delete-corporate',{'id': profileDocument.id }) }}">DELETE</a></li>
+                {% elseif profileDocument.documentName == 'DIR2-ID-COPY-BACK' %}
+                <script type="text/javascript">
+                    document.getElementById("idcopyback2").checked = true;
+                </script>
+                        <li><b><i>Backside Copy of ID of Director 2</i></b>&nbsp;<a style="color: red" href="{{ path('documents-delete-corporate',{'id': profileDocument.id }) }}">DELETE</a></li>
+
+                    {% elseif profileDocument.documentName == 'KIN-ID' %}
+                <script type="text/javascript">
+                    document.getElementById("kinidcopy").checked = true;
+                </script>
+                        <li><b><i>Copy of ID of Next of Kin/Beneficiary</i></b>&nbsp;<a style="color: red" href="{{ path('documents-delete-corporate',{'id': profileDocument.id }) }}">DELETE</a></li>
+
+                {% endif %}
+
+
+            {% endfor  %}
+        </ol>
+    {% else %}
+
+    {% endif %}
+
+    {% if profile.corporateProfileDocuments | length > 0 %}
+        {% if profile.corporateProfileDocuments | length < 9 %}
+            <fieldset>
+                <legend>Section B: Document Upload</legend>
+            </fieldset>
+            <p>Use the form below to upload the remaining documents one at a time.</p>
+        {% endif %}
+    {% endif %}
+</div>

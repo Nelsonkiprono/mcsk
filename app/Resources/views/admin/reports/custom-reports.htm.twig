@@ -1,0 +1,132 @@
+{% extends 'adminBase.htm.twig' %}
+{% block body %}
+
+    <div id="content" class="app-content box-shadow-z0" role="main">
+ <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header" data-background-color="red">
+                        <h4 class="title" style="color: #fff;">Users By Region</h4>
+
+                    </div>
+                    <div class="card-content table-responsive">
+                         <div id="chartdiv"></div>
+                    </div>
+                     <div class="card-content table-responsive">
+                         <div id="chartdiv_pie"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+<script src="v3.js"></script>
+    <script src="{{ asset('assets/js/core.js') }}"></script>
+    <script src="{{ asset('assets/js/charts.js') }}"></script>
+    <script src="{{ asset('assets/js/themes/animated.js') }}"></script>
+    <script>
+        am4core.useTheme(am4themes_animated);
+
+        var chart = am4core.create("chartdiv", am4charts.XYChart);
+
+        chart.data = [{
+            "region": "Nairobi",
+            "visits":  {{ nrNairobi }}
+        }, {
+            "region": "Coast",
+            "visits": {{ nrCoast }}
+        }, {
+            "region": "Central",
+            "visits": {{ nrCentral }}
+        }, {
+            "region": "Rift Valley",
+            "visits": {{ nrRift }}
+        }, {
+            "region": "Nyanza",
+            "visits": {{ nrNyanza }}
+        }, {
+            "region": "Eastern",
+            "visits": {{ nrEastern }}
+        }, {
+            "region": "Western",
+            "visits": {{ nrWestern }}
+        }];
+
+        chart.padding(40, 40, 40, 40);
+
+        var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+        categoryAxis.renderer.grid.template.location = 0;
+        categoryAxis.dataFields.category = "region";
+        categoryAxis.renderer.minGridDistance = 60;
+
+        var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+
+        var series = chart.series.push(new am4charts.ColumnSeries());
+        series.dataFields.categoryX = "region";
+        series.dataFields.valueY = "visits";
+        series.tooltipText = "{valueY.value}"
+        series.columns.template.strokeOpacity = 0;
+
+        chart.cursor = new am4charts.XYCursor();
+
+        // as by default columns of the same series are of the same color, we add adapter which takes colors from chart.colors color set
+        series.columns.template.adapter.add("fill", function (fill, target) {
+            return chart.colors.getIndex(target.dataItem.index);
+        });
+
+        var chart_pie = am4core.create("chartdiv_pie", am4charts.PieChart);
+
+
+        chart_pie.data = [{
+            "country": "Composer/Arranger/Author",
+            "value":  {{ nrIndividual }}
+        }, {
+            "country": "Deceased Composer/Arranger/Author",
+            "value":  {{ nrDeceasedProducer }}
+        }, {
+            "country": "Sole Proprietorship Publisher",
+            "value":  {{ nrSoleProprietorship }}
+        }, {
+            "country": "Limited Company Publisher",
+            "value":  {{ nrLimitedCompany }}
+        }];
+
+        chart_pie.innerRadius = am4core.percent(50);
+
+        var series_pie = chart_pie.series.push(new am4charts.PieSeries());
+        series_pie.dataFields.value = "value";
+        series_pie.dataFields.category = "country";
+
+        series_pie.slices.template.cornerRadius = 10;
+        series_pie.slices.template.innerCornerRadius = 7;
+        series_pie.alignLabels = false;
+        series_pie.labels.template.padding(0,0,0,0);
+
+        series_pie.labels.template.bent = true;
+        series_pie.labels.template.radius = 4;
+
+        series_pie.slices.template.states.getKey("hover").properties.scale = 1.1;
+        series_pie.labels.template.states.create("hover").properties.fill = am4core.color("#fff");
+
+        series_pie.slices.template.events.on("over", function (event) {
+            event.target.dataItem.label.isHover = true;
+        })
+
+        series_pie.slices.template.events.on("out", function (event) {
+            event.target.dataItem.label.isHover = false;
+        })
+
+        series_pie.ticks.template.disabled = true;
+
+        // this creates initial animation
+        series_pie.hiddenState.properties.opacity = 1;
+        series_pie.hiddenState.properties.endAngle = -90;
+        series_pie.hiddenState.properties.startAngle = -90;
+
+        chart_pie.legend = new am4charts.Legend();
+    </script>
+
+{% endblock %}

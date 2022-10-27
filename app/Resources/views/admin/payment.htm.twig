@@ -1,0 +1,50 @@
+{% extends 'adminBase.htm.twig' %}
+{% block title %}Confirm Payment{% endblock %}
+{% block body %}
+    <!-- ############ LAYOUT START-->
+   
+<style>
+    select{
+        width: 100px;
+        margin: 5px;
+    }
+</style>
+  <div class="container-fluid">
+    <div class="row">
+    <div class="col-md-12">
+    <div class="card">
+    <div class="card-header" style="background-color: #2E276D">
+        <h4 class="title" style="color: white">Profile Management</h4>
+        <p class="category">Confirm Payment</p>
+    </div>
+    <div class="card-content">
+
+                            {{ form_start(mpesaForm) }}
+                             <div class="md-form-group float-label" style="font-weight: bold">
+                                    {{ form_row(mpesaForm.mpesaNumber) }}
+
+                                </div>
+                            <div class="md-form-group float-label" style="font-weight: bold">
+                                    {{ form_row(mpesaForm.mpesaAmount) }}
+
+                                </div>
+                            <div class="md-form-group float-label" style="font-weight: bold">
+                                    {{ form_row(mpesaForm.mpesaConfirmationCode) }}
+
+                                </div>
+                            <div class="md-form-group float-label" style="font-weight: bold">
+                                    {{ form_row(mpesaForm.mpesaPaymentDate) }}
+
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn primary btn-block p-x-md">Update</button>
+                            {{ form_end(mpesaForm) }}
+                        </div>
+
+                    </div>
+                </div>
+         </div>
+   
+
+{% endblock %}

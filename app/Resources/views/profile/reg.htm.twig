@@ -1,0 +1,345 @@
+
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <title>Login</title>
+</head>
+<body>
+
+<div class="container">
+    <div class="row d-flex justify-content-center">
+        <div class="content">
+            <img src="{{ asset('./images/mcsk.jpg') }}" alt=""/>
+            <h3 class="text-center">Welcome</h3>
+            <p class="text-center">Become a composer,author,arranger or publisher</p>
+        </div>
+
+        <div class="col-md-12 register">
+            <div class="form-group">
+                <div class="col-sm-12">
+                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                        <a href="{{ path('security_logout') }}">Logout</a>
+                    {% else %}
+
+                        <a href="{{ path('prof_login') }}">Login</a>
+
+                    {% endif %}
+                    {% for message in app.flashes('success') %}
+                    <div class="alert alert-success">
+                        {{ message }}
+                    </div>
+                    {% endfor %}
+
+                    {% for message in app.flashes('error') %}
+                    <div class="alert alert-danger">
+                        {{ message }}
+                    </div>
+                    {% endfor %}
+            </div>
+        </div>
+
+
+            <form method="post" action="{{ path('reg_pay') }}">
+                <b><label>Registration Fees Payment</label></b>
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label>Payment Number<span style="color: red;"><b>*</b></span></label><br>
+                        <input required name="phone" value="254700776144">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Amount<span style="color: red;"><b>*</b></span></label><br>
+                        <input required disabled type="number" name="amount" value="10000">
+                    </div>
+                </div>
+                <input type="submit" value="PAY">
+            </form>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script type="text/javascript">
+    $('document').ready(function () {
+        $('#mgroup_no').click(function(){
+            $('#member_group').html('');
+        });
+
+        $('#mgroup_yes').click(function(){
+            $('#member_group').html(
+                    '<label class="col-md-12">Group Members</label>' +
+
+                    '<div class="col-md-6">'+
+                        '<div class="form-group col-md-12">' +
+                        '<label>First Name<span style="color: red;"><b>*</b></span></label>' +
+                        '<input required type="text" name="member_group_fname" class="form-control" placeholder="First Name">' +
+                        '</div>' +
+                        '<div class="form-group col-md-12">' +
+                        '<label>Last Name<span style="color: red;"><b>*</b></span></label>' +
+                        '<input required type="text" name="member_group_lname" class="form-control" placeholder=" Last Name">' +
+                        '</div>' +
+                        '<div class="form-group col-md-12">' +
+                        '<label>Tel/Mobile No<span style="color: red;"><b>*</b></span></label>' +
+                        '<input required type="text" name="member_group_tel" class="form-control" placeholder="Tel/Mobile No">' +
+                        '</div>' +
+                        '<div class="form-group col-md-12">' +
+                        '<label>Email<span style="color: red;"><b>*</b></span></label>' +
+                        '<input required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$" type="text" name="member_group_email" class="form-control" placeholder="Email">' +
+                        '</div>' +
+                    '</div>' +
+
+                    '<div class="col-md-6">'+
+                        '<div class="form-group col-md-12">' +
+                        '<label>First Name<span style="color: red;"><b>*</b></span></label>' +
+                        '<input required type="text" name="member_group_fname2" class="form-control" placeholder="First Name">' +
+                        '</div>' +
+                        '<div class="form-group col-md-12">' +
+                        '<label>Last Name<span style="color: red;"><b>*</b></span></label>' +
+                        '<input required type="text" name="member_group_lname2" class="form-control" placeholder=" Last Name">' +
+                        '</div>' +
+                        '<div class="form-group col-md-12">' +
+                        '<label>Tel/Mobile No<span style="color: red;"><b>*</b></span></label>' +
+                        '<input required type="text" name="member_group_tel2" class="form-control" placeholder="Tel/Mobile No">' +
+                        '</div>' +
+                        '<div class="form-group col-md-12">' +
+                        '<label>Email<span style="color: red;"><b>*</b></span></label>' +
+                        '<input required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$" type="text" name="member_group_email2" class="form-control" placeholder="Email">' +
+                        '</div>'+
+                    '</div>' +
+
+                    '<div class="col-md-6">'+
+                        '<div class="form-group col-md-12">' +
+                        '<label>First Name<span style="color: red;"><b>*</b></span></label>' +
+                        '<input required type="text" name="member_group_fname3" class="form-control" placeholder="First Name">' +
+                        '</div>' +
+                        '<div class="form-group col-md-12">' +
+                        '<label>Last Name<span style="color: red;"><b>*</b></span></label>' +
+                        '<input required type="text" name="member_group_lname3" class="form-control" placeholder=" Last Name">' +
+                        '</div>' +
+                        '<div class="form-group col-md-12">' +
+                        '<label>Tel/Mobile No<span style="color: red;"><b>*</b></span></label>' +
+                        '<input required type="text" name="member_group_tel3" class="form-control" placeholder="Tel/Mobile No">' +
+                        '</div>' +
+                        '<div class="form-group col-md-12">' +
+                        '<label>Email<span style="color: red;"><b>*</b></span></label>' +
+                        '<input required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$" type="text" name="member_group_email3" class="form-control" placeholder="Email">' +
+                        '</div>'+
+                    '</div>' +
+
+                    '<div class="col-md-6">'+
+                        '<div class="form-group col-md-12">' +
+                        '<label>First Name<span style="color: red;"><b>*</b></span></label>' +
+                        '<input required type="text" name="member_group_fname4" class="form-control" placeholder="First Name">' +
+                        '</div>' +
+                        '<div class="form-group col-md-12">' +
+                        '<label>Last Name<span style="color: red;"><b>*</b></span></label>' +
+                        '<input required type="text" name="member_group_lname4" class="form-control" placeholder=" Last Name">' +
+                        '</div>' +
+                        '<div class="form-group col-md-12">' +
+                        '<label>Tel/Mobile No<span style="color: red;"><b>*</b></span></label>' +
+                        '<input required type="text" name="member_group_tel4" class="form-control" placeholder="Tel/Mobile No">' +
+                        '</div>' +
+                        '<div class="form-group col-md-12">' +
+                        '<label>Email<span style="color: red;"><b>*</b></span></label>' +
+                        '<input required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$" type="text" name="member_group_email4" class="form-control" placeholder="Email">' +
+                        '</div>'+
+                    '</div>');
+        });
+
+        $('#mjco_yes').click(function(){
+            $('#member_jco').html(
+                '<div class="form-group col-md-12">' +
+                '<label>Attach agreement copy<span style="color: red;"><b>*</b></span></label>' +
+                '<input required type="file" accept="image/jpeg,image/png,application/pdf" name="member_jco_copy" class="form-control-file">' +
+                '</div>');
+        });
+
+        $('#mjco_no').click(function(){
+            $('#member_jco').html('');
+        });
+
+        $('#mdeceased_yes').click(function(){
+            $('#member_deceased').html(
+                '<div class="form-group col-md-12">' +
+                '<label>Attach letter of administration from court of law<span style="color: red;"><b>*</b></span></label>' +
+                '<input required type="file" accept="image/jpeg,image/png,application/pdf" name="member_deceased_copy" class="form-control-file">' +
+                '</div>');
+        });
+
+        $('#mdeceased_no').click(function(){
+            $('#member_deceased').html('');
+        });
+
+        $('#mscbx_yes').click(function(){
+            $('#member_societies').html(
+                '<div class="form-group col-md-12">' +
+                '<label>Give details<span style="color: red;"><b>*</b></span></label>' +
+                '<textarea required class="form-control" name="member_society_details" placeholder="Details here"></textarea> ' +
+                '</div> <div class="form-group col-md-12">' +
+                '<label>Please give membership number(s) (if known)</label>' +
+                '<input type="text" name="member_society_number" class="form-control">' +
+                '</div>');
+        });
+
+        $('#mscbx_no').click(function(){
+            $('#member_societies').html('');
+        });
+
+        $('#memply_yes').click(function(){
+            $('#member_employment').html(
+                '<div class="form-group col-md-12">' +
+                '<label>Company/Organisation Name<span style="color: red;"><b>*</b></span></label>' +
+                '<input required type="text" name="member_emp_company_name" class="form-control" placeholder="Name">' +
+                '</div>' +
+                '<div class="form-group col-md-12">' +
+                '<label>Company/Organisation Address<span style="color: red;"><b>*</b></span></label>' +
+                '<input required type="text" name="member_emp_company_address" class="form-control" placeholder="Address">' +
+                '</div>');
+        });
+
+        $('#memply_no').click(function(){
+            $('#member_employment').html('');
+        });
+
+        $('#mradio_yes').click(function(){
+            $('#member_radio').html(
+                '<div class="form-group col-md-12">' +
+                '<label>TV/Radio Station/Public Place Name<span style="color: red;"><b>*</b></span></label>' +
+                '<input required type="text" name="member_radio_name" class="form-control" placeholder="Name">' +
+                '</div>' +
+                '<div class="form-group col-md-12">' +
+                '<label>Attach a stamped letter from the above mentioned Radio/TV station/Public Place to prove this<span style="color: red;"><b>*</b></span></label>' +
+                '<input required type="file" accept="image/jpeg,image/png,application/pdf" name="member_radio_file" class="form-control-file">' +
+                '</div>');
+        });
+
+        $('#mradio_no').click(function(){
+            $('#member_radio').html('');
+        });
+
+        //Publisher
+        $('#ptob_sole').click(function(){
+            $('#publisher_tob').html('');
+        });
+
+        $('#ptob_lmtd').click(function(){
+            $('#publisher_tob').html(
+                '<label class="col-md-12">Other Directors</label>' +
+                '<div class="form-group col-md-6">' +
+                '<label>First Name<span style="color: red;"><b>*</b></span></label>' +
+                '<input required type="text" name="publisher_business_director_fname" class="form-control" placeholder="First Name">' +
+                '</div>' +
+                '<div class="form-group col-md-6">' +
+                '<label>Last Name<span style="color: red;"><b>*</b></span></label>' +
+                '<input required type="text" name="publisher_business_director_lname" class="form-control" placeholder=" Last Name">' +
+                '</div>' +
+                '<div class="form-group col-md-6">' +
+                '<label>Tel/Mobile No<span style="color: red;"><b>*</b></span></label>' +
+                '<input required type="text" name="publisher_business_director_mobile" class="form-control" placeholder="Tel/Mobile No">' +
+                '</div>' +
+                '<div class="form-group col-md-6">' +
+                '<label>Email<span style="color: red;"><b>*</b></span></label>' +
+                '<input required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$" type="text" name="publisher_business_director_email" class="form-control" placeholder="Email">' +
+                '</div>' +
+                '<div class="form-group col-md-6">' +
+                '<label>Nationality<span style="color: red;"><b>*</b></span></label>' +
+                '<input required type="text" name="publisher_business_director_nationality" class="form-control" placeholder="Kenyan">' +
+                '</div>' +
+                '<label class="col-md-12">Other Directors</label>' +
+                '<div class="form-group col-md-6">' +
+                '<label>First Name<span style="color: red;"><b>*</b></span></label>' +
+                '<input required type="text" name="publisher_business_director_fname2" class="form-control" placeholder="First Name">' +
+                '</div>' +
+                '<div class="form-group col-md-6">' +
+                '<label>Last Name<span style="color: red;"><b>*</b></span></label>' +
+                '<input required type="text" name="publisher_business_director_lname2" class="form-control" placeholder=" Last Name">' +
+                '</div>' +
+                '<div class="form-group col-md-6">' +
+                '<label>Tel/Mobile No<span style="color: red;"><b>*</b></span></label>' +
+                '<input required type="text" name="publisher_business_director_mobile2" class="form-control" placeholder="Tel/Mobile No">' +
+                '</div>' +
+                '<div class="form-group col-md-6">' +
+                '<label>Email<span style="color: red;"><b>*</b></span></label>' +
+                '<input required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$" type="text" name="publisher_business_director_email2" class="form-control" placeholder="Email">' +
+                '</div>' +
+                '<div class="form-group col-md-6">' +
+                '<label>Nationality<span style="color: red;"><b>*</b></span></label>' +
+                '<input required type="text" name="publisher_business_director_nationality2" class="form-control" placeholder="Kenyan">' +
+                '</div>');
+        });
+
+        $('#pcat_yes').click(function(){
+            $('#publisher_catalogue').html(
+                '<div class="form-group col-md-12">' +
+                '<label>Attach copy of agreements<span style="color: red;"><b>*</b></span></label>' +
+                '<input required type="file" accept="image/jpeg,image/png,application/pdf" name="publisher_catalogue_file" class="form-control-file">' +
+                '</div>');
+        });
+
+        $('#pcat_no').click(function(){
+            $('#publisher_catalogue').html('');
+        });
+
+        $('#pscbx_yes').click(function(){
+            $('#publisher_societies').html(
+                '<div class="form-group col-md-12">' +
+                ' <label>Give details<span style="color: red;"><b>*</b></span></label>' +
+                '<textarea class="form-control" name="publisher_society_details" placeholder="Details here"></textarea>' +
+                '</div> <div class="form-group col-md-12">' +
+                '<label>Please give membership number(s) (if known)</label>' +
+                '<input type="text" name="publisher_society_number" class="form-control">' +
+                '</div>');
+        });
+
+        $('#pscbx_no').click(function(){
+            $('#publisher_societies').html('');
+        });
+
+        $('#pemply_yes').click(function(){
+            $('#publisher_employment').html(
+                '<div class="form-group col-md-12">' +
+                '<label>Company/Organisation Name<span style="color: red;"><b>*</b></span></label>' +
+                '<input required type="text" name="publisher_emp_company_name" class="form-control" placeholder="Name">' +
+                '</div>' +
+                '<div class="form-group col-md-12">' +
+                '<label>Company/Organisation Address<span style="color: red;"><b>*</b></span></label>' +
+                '<input required type="text" name="publisher_emp_company_address" class="form-control" placeholder="Address">' +
+                '</div>');
+        });
+
+        $('#pemply_no').click(function(){
+            $('#publisher_employment').html('');
+        });
+
+        $('#pradio_yes').click(function(){
+            $('#publisher_radio').html(
+                '<div class="form-group col-md-12">' +
+                '<label>Stations/Sources/Public Place Name <span style="color: red;"><b>*</b></span></label>' +
+                '<input required type="text" name="publisher_station_name" class="form-control" placeholder="Name">' +
+                '</div>' +
+                '<div class="form-group col-md-12">' +
+                '<label>Attach a stamped letter from the above named Stations/Sources/Public Place to prove this<span style="color: red;"><b>*</b></span></label>' +
+                '<input required type="file" accept="image/jpeg,image/png,application/pdf" name="publisher_radio_file" class="form-control-file">' +
+                '</div>');
+        });
+
+        $('#pradio_no').click(function(){
+            $('#publisher_radio').html('');
+        });
+
+    });
+</script>
+</body>
+</html>
